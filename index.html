@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK JHA - Mutual Fund Distributor & Tax Consultant</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#F5C542',
+                            500: '#D4AF37',
+                            600: '#AA820A',
+                        },
+                        accentRed: '#E53E3E',
+                        darkBg: '#0A0A0B',
+                        cardBg: '#141416',
+                        lightBg: '#F8F9FA'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gold-gradient {
+            background: linear-gradient(135deg, #F5C542 0%, #D4AF37 50%, #996515 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #F5C542 0%, #D4AF37 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-gray-200 font-sans antialiased selection:bg-gold-500 selection:text-black">
+
+    <!-- ================= 1. HEADER / NAVBAR ================= -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#0A0A0B]/90 backdrop-blur-md border-b border-gold-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full border-2 border-gold-500 flex items-center justify-center bg-black shadow-lg shadow-gold-500/10">
+                    <span class="font-serif font-bold text-xl text-gold-500">MK</span>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wider text-white">MK JHA</h1>
+                    <p class="text-[10px] tracking-widest text-gold-400 uppercase font-semibold">Financial & Tax Services</p>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#about" class="text-gray-300 hover:text-gold-400 transition">About</a>
+                <a href="#services" class="text-gray-300 hover:text-gold-400 transition">Services</a>
+                <a href="#calculator" class="text-gray-300 hover:text-gold-400 transition">SIP Calculator</a>
+                <a href="#credentials" class="text-gray-300 hover:text-gold-400 transition">Credentials</a>
+                <a href="#why-us" class="text-gray-300 hover:text-gold-400 transition">Why Us</a>
+                <a href="#contact" class="px-5 py-2.5 rounded-full text-black font-bold text-xs uppercase tracking-wider btn-gold">
+                    Free Consultation
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden text-gold-400 text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cardBg border-b border-gold-500/20 px-6 py-4 space-y-3">
+            <a href="#about" class="block text-gray-300 hover:text-gold-400 py-1">About</a>
+            <a href="#services" class="block text-gray-300 hover:text-gold-400 py-1">Services</a>
+            <a href="#calculator" class="block text-gray-300 hover:text-gold-400 py-1">SIP Calculator</a>
+            <a href="#credentials" class="block text-gray-300 hover:text-gold-400 py-1">Credentials</a>
+            <a href="#contact" class="block text-gold-400 font-bold py-1">Get In Touch</a>
+        </div>
+    </header>
+
+    <!-- ================= 2. HERO SECTION ================= -->
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-32 overflow-hidden border-b border-gray-900">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,0.08),transparent_50%)]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-gold-500/30 bg-gold-500/10 text-gold-400 text-xs font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-accentRed animate-pulse"></span>
+                        <span>AMFI Registered MFD & Tax Consultant</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                        Apni Mehnat Ki Kamai Ko Banayein <br>
+                        <span class="gold-gradient">Mubarak Aane Wala Kal</span>
+                    </h1>
+                    <p class="text-gray-400 text-base sm:text-lg max-w-xl leading-relaxed">
+                        MK JHA ke sath karein sahi Mutual Fund Investments, Smart Tax Saving (ELSS) aur timely Income Tax Return (ITR) Filing. Ek hi jagah par verified aur bharosemand suvidha.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#calculator" class="px-8 py-3.5 rounded-lg text-black font-bold btn-gold shadow-lg">
+                            <i class="fa-solid fa-calculator mr-2"></i> Calculate SIP
+                        </a>
+                        <a href="#contact" class="px-8 py-3.5 rounded-lg border border-gold-500 text-gold-400 hover:bg-gold-500/10 font-bold transition">
+                            <i class="fa-brands fa-whatsapp mr-2 text-green-500"></i> Contact Us
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-gray-800 text-center sm:text-left">
+                        <div>
+                            <p class="text-2xl font-bold text-white">100%</p>
+                            <p class="text-xs text-gray-500 uppercase">Verified Compliance</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-gold-400">GST + ARN</p>
+                            <p class="text-xs text-gray-500 uppercase">Registered Services</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-accentRed">Zero</p>
+                            <p class="text-xs text-gray-500 uppercase">Advisory Confusion</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md bg-cardBg border border-gold-500/30 rounded-2xl p-6 shadow-2xl">
+                        <div class="absolute -top-3 -right-3 bg-accentRed text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                            Verified Professional
+                        </div>
+                        <div class="text-center pb-6 border-b border-gray-800">
+                            <div class="w-24 h-24 mx-auto rounded-full border-2 border-gold-500 flex items-center justify-center bg-black mb-4">
+                                <i class="fa-solid fa-user-tie text-4xl text-gold-500"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">MK JHA</h3>
+                            <p class="text-sm text-gold-400">AMFI Registered Mutual Fund Distributor</p>
+                            <p class="text-xs text-gray-400 mt-1">Taxation & ITR Filing Professional</p>
+                        </div>
+                        <div class="py-4 space-y-3 text-sm">
+                            <div class="flex items-center justify-between text-gray-300">
+                                <span><i class="fa-solid fa-id-card text-gold-500 mr-2"></i> Registration:</span>
+                                <span class="font-mono text-white font-semibold">AMFI Certified</span>
+                            </div>
+                            <div class="flex items-center justify-between text-gray-300">
+                                <span><i class="fa-solid fa-receipt text-gold-500 mr-2"></i> Tax Services:</span>
+                                <span class="text-white font-semibold">ITR-1, 2, 3 & 4 Filing</span>
+                            </div>
+                            <div class="flex items-center justify-between text-gray-300">
+                                <span><i class="fa-solid fa-shield-halved text-gold-500 mr-2"></i> Compliance:</span>
+                                <span class="text-white font-semibold">GST Registered</span>
+                            </div>
+                        </div>
+                        <a href="#contact" class="block text-center w-full py-3 mt-2 bg-gradient-to-r from-red-600 to-accentRed text-white font-bold rounded-lg hover:brightness-110 transition text-sm">
+                            Book Free Appointment
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 3. ABOUT US SECTION ================= -->
+    <section id="about" class="py-20 bg-black border-b border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+                <span class="text-xs uppercase font-bold text-accentRed tracking-widest">Hamare Baare Mein</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Vishwaas Aur Sachhai Ke Sath Aapka Financial Partner</h2>
+                <div class="w-20 h-1 bg-gold-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div class="space-y-5 text-gray-300 leading-relaxed text-justify">
+                    <p>
+                        <strong class="text-white">MK JHA Financial & Tax Services</strong> ka uddeshya har aam vyakti, dukaandaar aur salaried professionals ko sahi financial disha dena hai. Humara maanna hai ki investment aur tax dono ka santulan hi sachhi wealth banata hai.
+                    </p>
+                    <p>
+                        Chaahe choti SIP ke sath retirement ka plan banana ho ya financial year ke ant me sahi tareeke se Income Tax Return (ITR) file karke notices se bachna ho—hum poori transparency ke sath aapka sath dete hain.
+                    </p>
+                    <div class="p-4 rounded-xl border-l-4 border-gold-500 bg-cardBg">
+                        <p class="text-sm italic text-gray-400">
+                            "Humaara mission har parivaar tak sahi mutual fund awareness pahunchana aur bina kisi pareshani ke unhe tax compliance me aage rakhna hai."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6 rounded-xl bg-cardBg border border-gold-500/20 text-center">
+                        <i class="fa-solid fa-chart-pie text-3xl text-gold-400 mb-3"></i>
+                        <h4 class="font-bold text-white text-lg">Goal-Based SIP</h4>
+                        <p class="text-xs text-gray-400 mt-2">Bacchon ki padhai aur shadi ke liye planning</p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-cardBg border border-accentRed/30 text-center">
+                        <i class="fa-solid fa-file-invoice-dollar text-3xl text-accentRed mb-3"></i>
+                        <h4 class="font-bold text-white text-lg">ITR Filing</h4>
+                        <p class="text-xs text-gray-400 mt-2">Accurate aur timely tax assessment support</p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-cardBg border border-accentRed/30 text-center">
+                        <i class="fa-solid fa-piggy-bank text-3xl text-accentRed mb-3"></i>
+                        <h4 class="font-bold text-white text-lg">Tax Saver ELSS</h4>
+                        <p class="text-xs text-gray-400 mt-2">Section 80C ke tahat tax ki bachat</p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-cardBg border border-gold-500/20 text-center">
+                        <i class="fa-solid fa-headset text-3xl text-gold-400 mb-3"></i>
+                        <h4 class="font-bold text-white text-lg">Local Support</h4>
+                        <p class="text-xs text-gray-400 mt-2">Door-step aur WhatsApp par continuous help</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 4. CORE SERVICES SECTION ================= -->
+    <section id="services" class="py-20 bg-darkBg border-b border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-xs uppercase font-bold text-gold-400 tracking-widest">Hamaari Services</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Ek Hi Jagah Par Complete Financial Samadhaan</h2>
+                <div class="w-20 h-1 bg-accentRed mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-cardBg border border-gray-800 hover:border-gold-500/50 rounded-2xl p-8 transition duration-300 relative group">
+                    <div class="w-14 h-14 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Mutual Fund Distribution</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Top AMC schemes (Equity, Hybrid, Debt) me SIP aur Lumpsum invest karne me direct guidance. Har investor ke risk profile ke anusaar fund selection me sahayata.
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-2 border-t border-gray-800 pt-4">
+                        <li><i class="fa-solid fa-check text-gold-500 mr-2"></i> Monthly SIP Plan (₹500 se shuru)</li>
+                        <li><i class="fa-solid fa-check text-gold-500 mr-2"></i> Emergency Fund & Liquid Funds</li>
+                        <li><i class="fa-solid fa-check text-gold-500 mr-2"></i> Long-Term Wealth Creation</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-cardBg border border-gray-800 hover:border-accentRed/50 rounded-2xl p-8 transition duration-300 relative group">
+                    <div class="w-14 h-14 rounded-xl bg-accentRed/10 border border-accentRed/30 flex items-center justify-center text-accentRed text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-receipt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">ITR E-Filing Services</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Salaried employees, dukaandaar aur traders ke liye bina galti ke timely Income Tax Return file karne ki suvidha. Refund tracking aur Form 26AS/AIS verification.
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-2 border-t border-gray-800 pt-4">
+                        <li><i class="fa-solid fa-check text-accentRed mr-2"></i> ITR 1, 2, 3 & 4 Filing</li>
+                        <li><i class="fa-solid fa-check text-accentRed mr-2"></i> Tax Refund Claim Support</li>
+                        <li><i class="fa-solid fa-check text-accentRed mr-2"></i> Old vs New Tax Regime Analysis</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-cardBg border border-gray-800 hover:border-gold-500/50 rounded-2xl p-8 transition duration-300 relative group">
+                    <div class="w-14 h-14 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Tax Planning & GST Support</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Legal tareeke se apna tax bachayein. ELSS mutual funds me invest karke Section 80C ka labh uthayein aur business ke GST compliance ko seamless rakhein.
+                    </p>
+                    <ul class="text-xs text-gray-300 space-y-2 border-t border-gray-800 pt-4">
+                        <li><i class="fa-solid fa-check text-gold-500 mr-2"></i> ELSS Tax-Saver Funds</li>
+                        <li><i class="fa-solid fa-check text-gold-500 mr-2"></i> GST Return Support</li>
+                        <li><i class="fa-solid fa-check text-gold-500 mr-2"></i> PAN-Aadhaar & KYC Assistance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 5. DYNAMIC SIP CALCULATOR SECTION ================= -->
+    <section id="calculator" class="py-20 bg-black border-b border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-xs uppercase font-bold text-accentRed tracking-widest">Wealth Calculator</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Live SIP Calculator: Dekhein Apni Wealth Ka Future</h2>
+                <p class="text-gray-400 text-sm">Har mahine thoda bacha kar aap kitna bada corpus bana sakte hain, khud calculate karein.</p>
+                <div class="w-20 h-1 bg-gold-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-cardBg border border-gold-500/30 rounded-3xl p-6 sm:p-10 shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Sliders -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <!-- Input 1 -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-semibold text-gray-300">Monthly Investment (₹):</label>
+                                <span id="sip-amount-txt" class="text-lg font-bold text-gold-400">₹ 5,000</span>
+                            </div>
+                            <input id="sip-amount" type="range" min="500" max="100000" step="500" value="5000" class="w-full accent-gold-500 cursor-pointer h-2 bg-gray-700 rounded-lg">
+                        </div>
+
+                        <!-- Input 2 -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-semibold text-gray-300">Expected Annual Return (%):</label>
+                                <span id="sip-rate-txt" class="text-lg font-bold text-gold-400">12%</span>
+                            </div>
+                            <input id="sip-rate" type="range" min="6" max="25" step="0.5" value="12" class="w-full accent-gold-500 cursor-pointer h-2 bg-gray-700 rounded-lg">
+                        </div>
+
+                        <!-- Input 3 -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-sm font-semibold text-gray-300">Time Period (Years):</label>
+                                <span id="sip-years-txt" class="text-lg font-bold text-gold-400">10 Years</span>
+                            </div>
+                            <input id="sip-years" type="range" min="1" max="30" step="1" value="10" class="w-full accent-gold-500 cursor-pointer h-2 bg-gray-700 rounded-lg">
+                        </div>
+                    </div>
+
+                    <!-- Output Card -->
+                    <div class="lg:col-span-5 bg-black/60 border border-gray-800 rounded-2xl p-6 space-y-4">
+                        <div class="pb-3 border-b border-gray-800">
+                            <p class="text-xs text-gray-400">Invested Amount</p>
+                            <p id="res-invested" class="text-xl font-bold text-white">₹ 6,00,000</p>
+                        </div>
+                        <div class="pb-3 border-b border-gray-800">
+                            <p class="text-xs text-gray-400">Est. Returns (Profit)</p>
+                            <p id="res-gain" class="text-xl font-bold text-accentRed">₹ 5,61,695</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gold-400 font-semibold uppercase">Total Maturity Value</p>
+                            <p id="res-total" class="text-3xl font-extrabold text-gold-400">₹ 11,61,695</p>
+                        </div>
+                        <a id="btn-start-sip-plan" href="#contact" class="block text-center w-full py-3 rounded-lg text-black font-bold btn-gold text-xs uppercase tracking-wider">
+                            Is Goal Ke Liye Plan Karein
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 6. CREDENTIALS & LICENSES ================= -->
+    <section id="credentials" class="py-20 bg-darkBg border-b border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-xs uppercase font-bold text-gold-400 tracking-widest">Compliance & Legitimacy</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Pramaanikta Aur Kanooni Manyata</h2>
+                <p class="text-gray-400 text-sm">Aapka paisa aur documents poori tarah surakshit aur authorized haathon mein hain.</p>
+                <div class="w-20 h-1 bg-gold-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Credential 1 -->
+                <div class="p-6 rounded-2xl bg-cardBg border border-gold-500/20 text-center space-y-3">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gold-500/10 flex items-center justify-center text-gold-400 text-3xl">
+                        <i class="fa-solid fa-stamp"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white">AMFI Registered MFD</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Association of Mutual Funds in India (AMFI) dwara authorized ARN aur EUIN credential se paripoorn.
+                    </p>
+                    <span class="inline-block px-3 py-1 bg-black border border-gold-500/40 text-[11px] text-gold-400 font-mono rounded">
+                        Status: Active & Verified
+                    </span>
+                </div>
+
+                <!-- Credential 2 -->
+                <div class="p-6 rounded-2xl bg-cardBg border border-accentRed/30 text-center space-y-3">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-accentRed/10 flex items-center justify-center text-accentRed text-3xl">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white">GST Registered</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Government of India ke Goods and Services Tax portal par registered firm compliance.
+                    </p>
+                    <span class="inline-block px-3 py-1 bg-black border border-accentRed/40 text-[11px] text-accentRed font-mono rounded">
+                        GSTIN Verified
+                    </span>
+                </div>
+
+                <!-- Credential 3 -->
+                <div class="p-6 rounded-2xl bg-cardBg border border-gold-500/20 text-center space-y-3">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gold-500/10 flex items-center justify-center text-gold-400 text-3xl">
+                        <i class="fa-solid fa-shield-cat"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white">Tax Practitioner Support</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Income Tax portal se linked certified credential ke dwara direct electronic filing aur assessment.
+                    </p>
+                    <span class="inline-block px-3 py-1 bg-black border border-gold-500/40 text-[11px] text-gold-400 font-mono rounded">
+                        Direct IT Portal Linked
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 7. WHY CHOOSE MK JHA ================= -->
+    <section id="why-us" class="py-20 bg-black border-b border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-xs uppercase font-bold text-accentRed tracking-widest">Kyun Chunein Humein?</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white leading-tight">
+                        Aapke Liye Sahi Nirnay, <br><span class="gold-gradient">Bina Kisi Hidden Charges Ke</span>
+                    </h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Badi companies me client sirf ek number ban kar reh jata hai. MK JHA ke sath judne par aapko milta hai dedicated personal support, jahan har sawal ka seedha jawab milta hai.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="text-gold-400 text-lg mt-1"><i class="fa-solid fa-circle-check"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Personalized Guidance</h4>
+                                <p class="text-gray-400 text-xs">Aapki monthly aamdani aur lakshya ke anuroop plans.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <div class="text-gold-400 text-lg mt-1"><i class="fa-solid fa-circle-check"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Direct Portfolio & Mobile Access</h4>
+                                <p class="text-gray-400 text-xs">CAMS aur KFintech ke zariye mobile par 24x7 apna portfolio dekhein.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3">
+                            <div class="text-gold-400 text-lg mt-1"><i class="fa-solid fa-circle-check"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">End-to-End Tax Support</h4>
+                                <p class="text-gray-400 text-xs">Investment se lekar ITR filing tak, har saal ka jhanjhat khatam.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cardBg border border-gold-500/20 rounded-3xl p-8 relative">
+                    <div class="space-y-6 text-center">
+                        <i class="fa-solid fa-handshake-angle text-5xl text-gold-400"></i>
+                        <h3 class="text-2xl font-bold text-white">Aapka Bharosa, Hamari Zimmedari</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            "Aaj ka ek chota sa faisla aapke bacchon ke future aur aapki retirement ko surakshit kar sakta hai. Aaiye milkar shuruwat karein."
+                        </p>
+                        <div class="pt-4 border-t border-gray-800">
+                            <p class="text-gold-400 font-bold tracking-widest uppercase text-xs">MK JHA</p>
+                            <p class="text-[11px] text-gray-500">Chief Consultant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 8. CONTACT & LEAD FORM ================= -->
+    <section id="contact" class="py-20 bg-darkBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-xs uppercase font-bold text-gold-400 tracking-widest">Sampark Karein</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Shuru Karein Apni Financial Yatra</h2>
+                <p class="text-gray-400 text-sm">Niche diye gaye form ko bharein ya direct WhatsApp par message karein.</p>
+                <div class="w-20 h-1 bg-accentRed mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <!-- Info Side -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-cardBg p-6 rounded-2xl border border-gray-800 space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 uppercase">Direct Call / WhatsApp</p>
+                                <p class="text-white font-bold text-sm">+91 [Aapka Mobile Number]</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-accentRed/10 border border-accentRed/30 flex items-center justify-center text-accentRed">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 uppercase">Official Email</p>
+                                <p class="text-white font-bold text-sm">contact@mkjha.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 uppercase">Office / Service Location</p>
+                                <p class="text-white font-bold text-sm">[Aapka City / Area, Bihar / Jharkhand]</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-black border border-gold-500/20 text-xs text-gray-400">
+                        <p class="font-bold text-gold-400 mb-1"><i class="fa-solid fa-bell mr-1"></i> Quick Note:</p>
+                        Aap WhatsApp par seedha ITR documents ya SIP related queries bhi send kar sakte hain. Full confidentiality assured.
+                    </div>
+                </div>
+
+                <!-- Form Side -->
+                <div class="lg:col-span-7">
+                    <form id="lead-form" class="bg-cardBg p-8 rounded-3xl border border-gold-500/30 space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Aapka Naam *</label>
+                                <input type="text" id="lead-name" required placeholder="Full Name" class="w-full bg-black border border-gray-700 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">Mobile / WhatsApp No. *</label>
+                                <input type="tel" id="lead-phone" required placeholder="10 Digit Number" class="w-full bg-black border border-gray-700 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">Service Ki Zaroorat *</label>
+                            <select id="lead-service" class="w-full bg-black border border-gray-700 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                                <option value="New SIP / Mutual Fund">New SIP / Mutual Fund Planning</option>
+                                <option value="Income Tax Return (ITR)">Income Tax Return (ITR) Filing</option>
+                                <option value="Tax Saving ELSS">Tax Saving (ELSS 80C)</option>
+                                <option value="General Financial Consultation">General Financial Consultation</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">Aapka Message / Sawal (Optional)</label>
+                            <textarea id="lead-msg" rows="3" placeholder="Kitna invest karna chahte hain ya ITR ke baare me kuch puchna hai..." class="w-full bg-black border border-gray-700 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-lg text-black font-bold btn-gold uppercase tracking-wider text-sm flex items-center justify-center space-x-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>WhatsApp Par Query Bhejein</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER & SEBI DISCLAIMER ================= -->
+    <footer class="bg-black border-t border-gray-900 pt-12 pb-8 text-gray-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-center pb-6 border-b border-gray-900 gap-4">
+                <div class="flex items-center space-x-3">
+                    <span class="font-serif font-bold text-lg text-gold-500">MK JHA</span>
+                    <span class="text-gray-600">|</span>
+                    <span class="text-gray-400">Financial & Tax Services</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#about" class="hover:text-gold-400">About</a>
+                    <a href="#services" class="hover:text-gold-400">Services</a>
+                    <a href="#calculator" class="hover:text-gold-400">SIP Calculator</a>
+                    <a href="#contact" class="hover:text-gold-400">Contact</a>
+                </div>
+            </div>
+
+            <!-- Mandatory AMFI/SEBI Compliance Note -->
+            <div class="p-4 rounded-xl bg-cardBg border border-gray-800 text-[11px] leading-relaxed text-gray-400">
+                <p class="font-semibold text-gold-500 uppercase mb-1">Regulatory Disclaimer:</p>
+                <p>
+                    <strong>Mutual Fund investments are subject to market risks, read all scheme related documents carefully.</strong> MK JHA operates strictly as an AMFI-Registered Mutual Fund Distributor (MFD) and provides intermediary services for mutual fund transactions. We do not provide guaranteed returns on any market-linked investments. Tax filing and GST facilitation are processed based on details provided by the respective assesses.
+                </p>
+            </div>
+
+            <div class="text-center text-gray-600 pt-2">
+                &copy; 2026 MK JHA Financial Services. All Rights Reserved. Designed for Seamless Growth.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/91XXXXXXXXXX?text=Namaste%20MK%20Jha%20Ji,%20mujhe%20Mutual%20Fund%20aur%20Tax%20ke%20bare%20me%20jankari%20chahiye." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center text-3xl shadow-2xl transition hover:scale-110">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // SIP Calculator Logic
+        const amountInput = document.getElementById('sip-amount');
+        const rateInput = document.getElementById('sip-rate');
+        const yearsInput = document.getElementById('sip-years');
+
+        const amountTxt = document.getElementById('sip-amount-txt');
+        const rateTxt = document.getElementById('sip-rate-txt');
+        const yearsTxt = document.getElementById('sip-years-txt');
+
+        const resInvested = document.getElementById('res-invested');
+        const resGain = document.getElementById('res-gain');
+        const resTotal = document.getElementById('res-total');
+
+        function formatINR(number) {
+            return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(Math.round(number));
+        }
+
+        function calculateSIP() {
+            const P = parseFloat(amountInput.value);
+            const annualRate = parseFloat(rateInput.value);
+            const years = parseFloat(yearsInput.value);
+
+            amountTxt.innerText = "₹ " + formatINR(P);
+            rateTxt.innerText = annualRate + "%";
+            yearsTxt.innerText = years + " Years";
+
+            const i = (annualRate / 100) / 12;
+            const n = years * 12;
+
+            // SIP Formula: M = P * [((1 + i)^n - 1) / i] * (1 + i)
+            const maturity = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+            const totalInvested = P * n;
+            const returns = maturity - totalInvested;
+
+            resInvested.innerText = "₹ " + formatINR(totalInvested);
+            resGain.innerText = "₹ " + formatINR(returns);
+            resTotal.innerText = "₹ " + formatINR(maturity);
+        }
+
+        amountInput.addEventListener('input', calculateSIP);
+        rateInput.addEventListener('input', calculateSIP);
+        yearsInput.addEventListener('input', calculateSIP);
+        calculateSIP(); // Initial Run
+
+        // Lead Form to WhatsApp Submission
+        const leadForm = document.getElementById('lead-form');
+        leadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('lead-name').value;
+            const phone = document.getElementById('lead-phone').value;
+            const service = document.getElementById('lead-service').value;
+            const msg = document.getElementById('lead-msg').value;
+
+            // Papa ka 10 digit WhatsApp number yahan replace karein (e.g., 919876543210)
+            const papaNumber = "91XXXXXXXXXX"; 
+
+            const whatsappMessage = `*Nayi Website Query - MK JHA Services*%0A%0A` +
+                                    `*Naam:* ${encodeURIComponent(name)}%0A` +
+                                    `*Phone:* ${encodeURIComponent(phone)}%0A` +
+                                    `*Service:* ${encodeURIComponent(service)}%0A` +
+                                    `*Message:* ${encodeURIComponent(msg || 'None')}`;
+
+            window.open(`https://wa.me/${papaNumber}?text=${whatsappMessage}`, '_blank');
+        });
+    </script>
+</body>
+</html>
