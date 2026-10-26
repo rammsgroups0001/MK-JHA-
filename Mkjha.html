@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK JHA | Mutual Fund Distributor & Tax Consultant</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        goldTheme: '#B8860B',
+                        goldLight: '#DFB15B',
+                        accentCrimson: '#DC2626',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+
+        /* Liquid Glassmorphism Core */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+        }
+
+        .liquid-glass-nav {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(30px) saturate(190%);
+            -webkit-backdrop-filter: blur(30px) saturate(190%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+        }
+
+        .liquid-pill {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Ambient Liquid Mesh Background */
+        .ambient-blob-1 {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(223, 177, 91, 0.18) 0%, rgba(255, 255, 255, 0) 70%);
+            filter: blur(50px);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: liquidFloat 16s ease-in-out infinite alternate;
+        }
+
+        .ambient-blob-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+            filter: blur(60px);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: liquidFloat 20s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes liquidFloat {
+            0% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(60px, 40px) scale(1.1); }
+            100% { transform: translate(-30px, 80px) scale(0.95); }
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #1A1A1A 20%, #B8860B 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-[#F8F9FC] text-black font-sans antialiased relative overflow-x-hidden selection:bg-goldTheme selection:text-white">
+
+    <!-- Ambient Floating Orbs -->
+    <div class="ambient-blob-1 top-10 left-[-100px]"></div>
+    <div class="ambient-blob-2 top-[35%] right-[-100px]"></div>
+    <div class="ambient-blob-1 bottom-[10%] left-[20%]"></div>
+
+    <!-- ================= SECTION 1: HEADER & LIQUID NAVIGATION ================= -->
+    <header class="fixed top-0 left-0 w-full z-50 liquid-glass-nav transition duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-2xl liquid-pill flex items-center justify-center border border-white shadow-sm">
+                    <span class="font-serif font-extrabold text-lg text-black">MK</span>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-black block leading-none">MK JHA</span>
+                    <span class="text-[10px] tracking-widest text-goldTheme uppercase font-bold">Wealth & Taxation</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-7 text-sm font-semibold text-gray-700">
+                <a href="#about" class="hover:text-goldTheme transition">Overview</a>
+                <a href="#services" class="hover:text-goldTheme transition">Services</a>
+                <a href="#calculator" class="hover:text-goldTheme transition">SIP Simulator</a>
+                <a href="#credentials" class="hover:text-goldTheme transition">Accreditations</a>
+                <a href="#workflow" class="hover:text-goldTheme transition">Strategy</a>
+                <a href="#contact" class="px-5 py-2.5 rounded-full bg-black text-white hover:bg-goldTheme hover:shadow-lg transition duration-300 text-xs uppercase tracking-wider font-bold">
+                    Schedule Review
+                </a>
+            </nav>
+
+            <button id="menu-btn" class="md:hidden text-2xl text-black focus:outline-none p-2">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 py-5 liquid-glass space-y-3 border-t border-white/60">
+            <a href="#about" class="block font-semibold text-gray-800 py-1">Overview</a>
+            <a href="#services" class="block font-semibold text-gray-800 py-1">Services</a>
+            <a href="#calculator" class="block font-semibold text-gray-800 py-1">SIP Simulator</a>
+            <a href="#credentials" class="block font-semibold text-gray-800 py-1">Accreditations</a>
+            <a href="#contact" class="block font-bold text-accentCrimson py-1">Get Started</a>
+        </div>
+    </header>
+
+    <!-- ================= SECTION 2: HERO DISPLAY ================= -->
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-7">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full liquid-pill border border-white">
+                        <span class="w-2.5 h-2.5 rounded-full bg-accentCrimson animate-ping"></span>
+                        <span class="text-xs font-bold text-black uppercase tracking-wider">AMFI Registered Distributor & Tax Consultant</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-black leading-[1.15]">
+                        Architecting <br>
+                        <span class="text-gradient-gold">Enduring Wealth</span> <br>
+                        & Tax Precision.
+                    </h1>
+
+                    <p class="text-gray-600 text-base sm:text-lg max-w-xl leading-relaxed font-normal">
+                        Empowering salaried executives, enterprise founders, and families with disciplined mutual fund investment frameworks and seamless income tax e-filing execution.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#calculator" class="px-8 py-4 rounded-2xl bg-black text-white hover:bg-goldTheme font-bold transition shadow-xl text-sm flex items-center space-x-2">
+                            <span>SIP Investment Engine</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                        <a href="#contact" class="px-8 py-4 rounded-2xl liquid-glass border border-white/80 hover:bg-white text-black font-bold transition text-sm flex items-center space-x-2 shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-emerald-600 text-base"></i>
+                            <span>Direct Engagement</span>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-6 pt-6 border-t border-gray-200">
+                        <div>
+                            <p class="text-2xl font-black text-black">100%</p>
+                            <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Fiduciary Ethics</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-black text-goldTheme">SEBI / AMFI</p>
+                            <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Standard Compliance</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-black text-accentCrimson">Integrated</p>
+                            <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Direct Tax Portal</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="relative liquid-glass rounded-3xl p-8 border border-white shadow-2xl">
+                        <div class="flex items-center justify-between border-b border-gray-200/60 pb-6 mb-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-14 h-14 rounded-2xl bg-white shadow-inner flex items-center justify-center border border-gray-100">
+                                    <i class="fa-solid fa-user-shield text-2xl text-black"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-lg font-bold text-black">MK JHA</h2>
+                                    <p class="text-xs text-goldTheme font-semibold">Senior Wealth Practitioner</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-accentCrimson/10 text-accentCrimson text-[10px] font-extrabold uppercase tracking-wider">Verified MFD</span>
+                        </div>
+
+                        <div class="space-y-4 text-sm text-gray-700">
+                            <div class="flex justify-between items-center p-3 rounded-xl bg-white/70 border border-white">
+                                <span class="font-medium text-xs text-gray-500">Distribution Licensure</span>
+                                <span class="font-bold text-black font-mono">AMFI ARN / EUIN Holder</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 rounded-xl bg-white/70 border border-white">
+                                <span class="font-medium text-xs text-gray-500">Fiscal Registration</span>
+                                <span class="font-bold text-black font-mono">Authorized GSTIN Entity</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 rounded-xl bg-white/70 border border-white">
+                                <span class="font-medium text-xs text-gray-500">Tax Competency</span>
+                                <span class="font-bold text-black">ITR 1 through 4 Advisory</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-5 border-t border-gray-200/60 flex items-center justify-between text-xs text-gray-500">
+                            <span><i class="fa-solid fa-location-dot text-goldTheme mr-1"></i> Regional Branch Operations</span>
+                            <span class="font-bold text-black">Active Facilitation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 3: STRATEGIC OVERVIEW ================= -->
+    <section id="about" class="py-24 bg-white/60 relative border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center space-y-3 mb-16">
+                <span class="text-xs font-extrabold text-accentCrimson uppercase tracking-widest">Advisory Philosophy</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-black">Precision Execution Without Ambiguity</h2>
+                <div class="w-16 h-1 bg-goldTheme mx-auto rounded-full mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-gray-600 leading-relaxed font-normal">
+                    <p class="text-lg text-black font-semibold">
+                        Capital accumulation requires unwavering consistency, and tax efficiency requires absolute compliance.
+                    </p>
+                    <p>
+                        Led by <strong>MK JHA</strong>, this consultancy bridges the gap between institutional investment opportunities and individual financial ambitions. We eliminate convoluted jargon, ensuring your capital is positioned in verified asset classes matched strictly with your unique horizon and risk threshold.
+                    </p>
+                    <p>
+                        By synthesizing investment execution with routine tax e-filing, investors circumvent systemic compliance friction, preventing statutory penalties while compounding wealth systematically.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="liquid-glass p-6 rounded-2xl border border-white shadow-sm">
+                        <i class="fa-solid fa-chart-line text-2xl text-goldTheme mb-3"></i>
+                        <h3 class="text-sm font-bold text-black mb-1">Systematic Accumulation</h3>
+                        <p class="text-xs text-gray-500">Data-backed monthly equity and hybrid allocations.</p>
+                    </div>
+                    <div class="liquid-glass p-6 rounded-2xl border border-white shadow-sm">
+                        <i class="fa-solid fa-scale-balanced text-2xl text-accentCrimson mb-3"></i>
+                        <h3 class="text-sm font-bold text-black mb-1">Fiscal Precision</h3>
+                        <p class="text-xs text-gray-500">Clean assessments across business and salaried structures.</p>
+                    </div>
+                    <div class="liquid-glass p-6 rounded-2xl border border-white shadow-sm">
+                        <i class="fa-solid fa-shield-halved text-2xl text-black mb-3"></i>
+                        <h3 class="text-sm font-bold text-black mb-1">Asset Protection</h3>
+                        <p class="text-xs text-gray-500">Emergency corpus creation using sovereign liquid vehicles.</p>
+                    </div>
+                    <div class="liquid-glass p-6 rounded-2xl border border-white shadow-sm">
+                        <i class="fa-solid fa-file-shield text-2xl text-goldTheme mb-3"></i>
+                        <h3 class="text-sm font-bold text-black mb-1">80C Optimization</h3>
+                        <p class="text-xs text-gray-500">ELSS deployment yielding dual growth and deductions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 4: PRACTICE DISCIPLINES ================= -->
+    <section id="services" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center space-y-3 mb-16">
+                <span class="text-xs font-extrabold text-goldTheme uppercase tracking-widest">Capabilities</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-black">Comprehensive Solutions Portfolio</h2>
+                <div class="w-16 h-1 bg-accentCrimson mx-auto rounded-full mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="liquid-glass rounded-3xl p-8 border border-white hover:border-goldTheme/40 transition duration-300 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl liquid-pill flex items-center justify-center text-goldTheme text-xl mb-6 shadow-inner">
+                            <i class="fa-solid fa-vault"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-black mb-3">Mutual Fund Distribution</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-6">
+                            Assisting clients in onboarding into premier Asset Management Companies (AMCs) across Equity, Debt, and Balanced Advantage strategies.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-gray-700 space-y-3 pt-6 border-t border-gray-200/60 font-medium">
+                        <li><i class="fa-solid fa-circle-check text-goldTheme mr-2"></i> Systematic Investment Plans (SIP)</li>
+                        <li><i class="fa-solid fa-circle-check text-goldTheme mr-2"></i> Lumpsum Portfolio Staging</li>
+                        <li><i class="fa-solid fa-circle-check text-goldTheme mr-2"></i> Direct Folio Structuring & KYC Setup</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="liquid-glass rounded-3xl p-8 border border-white hover:border-accentCrimson/40 transition duration-300 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl liquid-pill flex items-center justify-center text-accentCrimson text-xl mb-6 shadow-inner">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-black mb-3">Direct Income Tax E-Filing</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-6">
+                            Meticulous tax filing for salaried individuals, sole proprietorships, and traders. Comprehensive AIS/TIS and Form 26AS reconciliation.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-gray-700 space-y-3 pt-6 border-t border-gray-200/60 font-medium">
+                        <li><i class="fa-solid fa-circle-check text-accentCrimson mr-2"></i> ITR-1, ITR-2, ITR-3 & ITR-4 Filings</li>
+                        <li><i class="fa-solid fa-circle-check text-accentCrimson mr-2"></i> Refund Tracking & Defect Mitigation</li>
+                        <li><i class="fa-solid fa-circle-check text-accentCrimson mr-2"></i> Regime Contrast Analysis (New vs Old)</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="liquid-glass rounded-3xl p-8 border border-white hover:border-goldTheme/40 transition duration-300 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl liquid-pill flex items-center justify-center text-black text-xl mb-6 shadow-inner">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-black mb-3">Tax Strategy & GST Compliance</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-6">
+                            Protecting annual income legally through statutory allowances, institutional tax-saver schemes, and regular merchant GST compliance.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-gray-700 space-y-3 pt-6 border-t border-gray-200/60 font-medium">
+                        <li><i class="fa-solid fa-circle-check text-black mr-2"></i> ELSS Mutual Fund Allocation (Sec 80C)</li>
+                        <li><i class="fa-solid fa-circle-check text-black mr-2"></i> GST Return Facilitation</li>
+                        <li><i class="fa-solid fa-circle-check text-black mr-2"></i> Capital Gains Advisory on Realized Funds</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 5: LIVE LIQUID SIP CALCULATOR ================= -->
+    <section id="calculator" class="py-24 bg-white/70 border-y border-gray-100 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center space-y-3 mb-16">
+                <span class="text-xs font-extrabold text-accentCrimson uppercase tracking-widest">Interactive Modeler</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-black">Systematic Investment Plan Simulator</h2>
+                <p class="text-sm text-gray-600">Simulate historical compounding dynamics to project your maturity reserves.</p>
+                <div class="w-16 h-1 bg-goldTheme mx-auto rounded-full mt-3"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto liquid-glass rounded-3xl p-8 sm:p-12 border border-white shadow-xl">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <!-- Dynamic Controls -->
+                    <div class="lg:col-span-7 space-y-7">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs uppercase tracking-wider font-bold text-gray-600">Monthly Contribution</label>
+                                <span id="sip-amount-txt" class="text-base font-extrabold text-black font-mono">₹ 5,000</span>
+                            </div>
+                            <input id="sip-amount" type="range" min="500" max="150000" step="500" value="5000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-black">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs uppercase tracking-wider font-bold text-gray-600">Expected Annual Rate of Return</label>
+                                <span id="sip-rate-txt" class="text-base font-extrabold text-goldTheme font-mono">12%</span>
+                            </div>
+                            <input id="sip-rate" type="range" min="6" max="24" step="0.5" value="12" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-goldTheme">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs uppercase tracking-wider font-bold text-gray-600">Investment Horizon</label>
+                                <span id="sip-years-txt" class="text-base font-extrabold text-black font-mono">10 Years</span>
+                            </div>
+                            <input id="sip-years" type="range" min="1" max="30" step="1" value="10" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-black">
+                        </div>
+                    </div>
+
+                    <!-- Computed Metric Display -->
+                    <div class="lg:col-span-5 liquid-pill rounded-2xl p-6 border border-white space-y-4 shadow-sm">
+                        <div class="pb-3 border-b border-gray-200">
+                            <span class="text-[11px] uppercase tracking-wider font-bold text-gray-500 block">Total Principal Invested</span>
+                            <span id="res-invested" class="text-xl font-bold text-black font-mono">₹ 6,00,000</span>
+                        </div>
+                        <div class="pb-3 border-b border-gray-200">
+                            <span class="text-[11px] uppercase tracking-wider font-bold text-gray-500 block">Estimated Profit Accumulation</span>
+                            <span id="res-gain" class="text-xl font-bold text-accentCrimson font-mono">₹ 5,61,695</span>
+                        </div>
+                        <div>
+                            <span class="text-[11px] uppercase tracking-wider font-bold text-goldTheme block">Projected Maturity Balance</span>
+                            <span id="res-total" class="text-3xl font-extrabold text-black font-mono">₹ 11,61,695</span>
+                        </div>
+                        <a href="#contact" class="block text-center w-full py-3.5 mt-2 rounded-xl bg-black text-white hover:bg-goldTheme font-bold transition text-xs uppercase tracking-wider">
+                            Commence Execution
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 6: INSTITUTIONAL ACCREDITATIONS ================= -->
+    <section id="credentials" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center space-y-3 mb-16">
+                <span class="text-xs font-extrabold text-goldTheme uppercase tracking-widest">Verification</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-black">Regulatory Accreditations</h2>
+                <div class="w-16 h-1 bg-accentCrimson mx-auto rounded-full mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="liquid-glass rounded-2xl p-8 border border-white text-center space-y-3 shadow-sm">
+                    <div class="w-16 h-16 mx-auto rounded-2xl liquid-pill flex items-center justify-center text-goldTheme text-2xl shadow-inner">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-black">AMFI Registered MFD</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Authorized under the Association of Mutual Funds in India to distribute approved collective investment schemes.
+                    </p>
+                    <span class="inline-block px-3 py-1 bg-white border border-gray-200 text-black text-[10px] font-mono font-bold rounded-full">
+                        ARN / EUIN Verified
+                    </span>
+                </div>
+
+                <div class="liquid-glass rounded-2xl p-8 border border-white text-center space-y-3 shadow-sm">
+                    <div class="w-16 h-16 mx-auto rounded-2xl liquid-pill flex items-center justify-center text-accentCrimson text-2xl shadow-inner">
+                        <i class="fa-solid fa-landmark"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-black">GST Compliant Entity</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Formally incorporated under national Goods and Services Tax protocols for fully auditable operations.
+                    </p>
+                    <span class="inline-block px-3 py-1 bg-white border border-gray-200 text-black text-[10px] font-mono font-bold rounded-full">
+                        GSTIN Registered
+                    </span>
+                </div>
+
+                <div class="liquid-glass rounded-2xl p-8 border border-white text-center space-y-3 shadow-sm">
+                    <div class="w-16 h-16 mx-auto rounded-2xl liquid-pill flex items-center justify-center text-black text-2xl shadow-inner">
+                        <i class="fa-solid fa-file-contract"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-black">Tax Filing Practitioner</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Authorized practitioner access to the Centralized Processing Center (CPC) of the Income Tax Department.
+                    </p>
+                    <span class="inline-block px-3 py-1 bg-white border border-gray-200 text-black text-[10px] font-mono font-bold rounded-full">
+                        E-Filing Portal Access
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 7: CLIENT VALUE & WORKFLOW ================= -->
+    <section id="workflow" class="py-24 bg-white/70 border-y border-gray-100 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-xs font-extrabold text-accentCrimson uppercase tracking-widest">Our Distinct Advantage</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-black leading-tight">
+                        Direct Access, Zero Bureaucracy.
+                    </h2>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Corporate automated platforms leave investors stranded behind robotic chat tickets. MK JHA provides personalized attention where your portfolio decisions and tax calculations receive tailored assessment directly.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="liquid-glass p-4 rounded-2xl border border-white flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
+                                01
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-black">Objective Allocation</h3>
+                                <p class="text-xs text-gray-500">Zero pushing of unsuitable speculative instruments.</p>
+                            </div>
+                        </div>
+
+                        <div class="liquid-glass p-4 rounded-2xl border border-white flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-goldTheme text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
+                                02
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-black">Unfettered Portfolio Ownership</h3>
+                                <p class="text-xs text-gray-500">Monitor transactions directly on CAMS, KFintech, and AMC portals.</p>
+                            </div>
+                        </div>
+
+                        <div class="liquid-glass p-4 rounded-2xl border border-white flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-accentCrimson text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
+                                03
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-black">Tax Preparation Synergy</h3>
+                                <p class="text-xs text-gray-500">End-of-year capital gains statements integrated seamlessly into ITR returns.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="liquid-glass rounded-3xl p-10 border border-white shadow-xl text-center space-y-6">
+                    <i class="fa-solid fa-compass text-5xl text-goldTheme"></i>
+                    <h3 class="text-2xl font-bold text-black">Your Financial Fiduciary</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        "Disciplined capital growth does not necessitate complex risk. It requires consistency, legal tax minimization, and an unwavering commitment to your future targets."
+                    </p>
+                    <div class="pt-4 border-t border-gray-200">
+                        <p class="font-extrabold text-black tracking-wider uppercase text-sm">MK JHA</p>
+                        <p class="text-xs text-goldTheme font-semibold">Chief Consultant & Distributor</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 8: CONTACT & WHATSAPP INTEGRATION ================= -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center space-y-3 mb-16">
+                <span class="text-xs font-extrabold text-goldTheme uppercase tracking-widest">Connect</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-black">Schedule an Engagement</h2>
+                <p class="text-sm text-gray-600">Submit your requirements to initiate an immediate WhatsApp session.</p>
+                <div class="w-16 h-1 bg-accentCrimson mx-auto rounded-full mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="liquid-glass rounded-3xl p-8 border border-white shadow-sm space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-2xl liquid-pill flex items-center justify-center text-black text-xl">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Direct Voice Access</p>
+                                <p class="text-sm font-bold text-black">+91 [Insert Phone Number]</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-2xl liquid-pill flex items-center justify-center text-goldTheme text-xl">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Electronic Inquiries</p>
+                                <p class="text-sm font-bold text-black">advisory@mkjha.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-2xl liquid-pill flex items-center justify-center text-accentCrimson text-xl">
+                                <i class="fa-solid fa-map-pin"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Operations Desk</p>
+                                <p class="text-sm font-bold text-black">Consulting Chambers, Regional Office</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="liquid-pill p-5 rounded-2xl border border-white text-xs text-gray-600">
+                        <span class="font-bold text-black block mb-1"><i class="fa-solid fa-lock text-emerald-600 mr-1"></i> Data Privacy Mandate:</span>
+                        All submitted financial statements, PAN details, and tax documentation are guarded under strict non-disclosure ethics.
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <form id="consultation-form" class="liquid-glass rounded-3xl p-8 sm:p-10 border border-white shadow-xl space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Legal Name *</label>
+                                <input type="text" id="client-name" required placeholder="John Doe" class="w-full bg-white/80 border border-gray-200 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Mobile / WhatsApp *</label>
+                                <input type="tel" id="client-phone" required placeholder="10-Digit Mobile" class="w-full bg-white/80 border border-gray-200 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Practice Requirement *</label>
+                            <select id="client-service" class="w-full bg-white/80 border border-gray-200 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black transition">
+                                <option value="New Systematic Investment Plan (SIP)">New Systematic Investment Plan (SIP)</option>
+                                <option value="Income Tax Return (ITR) Filing">Income Tax Return (ITR) Filing</option>
+                                <option value="Section 80C Tax-Saver Allocation (ELSS)">Section 80C Tax-Saver Allocation (ELSS)</option>
+                                <option value="General Financial Review">General Financial Review</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Brief Context (Optional)</label>
+                            <textarea id="client-context" rows="3" placeholder="Provide any existing goals or tax deadlines..." class="w-full bg-white/80 border border-gray-200 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-black transition"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-black text-white hover:bg-goldTheme font-bold transition text-xs uppercase tracking-widest flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+                            <span>Transmit Inquiry via WhatsApp</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= STATUTORY FOOTER & SEBI NOTICE ================= -->
+    <footer class="bg-white border-t border-gray-200 pt-16 pb-12 text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="flex flex-col md:flex-row justify-between items-center pb-8 border-b border-gray-200 gap-4">
+                <div class="flex items-center space-x-3">
+                    <span class="font-serif font-bold text-lg text-black">MK JHA</span>
+                    <span class="text-gray-300">|</span>
+                    <span class="text-gray-600 font-medium">Financial & Tax Services</span>
+                </div>
+                <div class="flex space-x-6 text-gray-600 font-medium">
+                    <a href="#about" class="hover:text-black">Overview</a>
+                    <a href="#services" class="hover:text-black">Services</a>
+                    <a href="#calculator" class="hover:text-black">SIP Simulator</a>
+                    <a href="#credentials" class="hover:text-black">Credentials</a>
+                    <a href="#contact" class="hover:text-black">Contact</a>
+                </div>
+            </div>
+
+            <!-- Mandatory AMFI / SEBI Disclaimer Box -->
+            <div class="liquid-pill p-5 rounded-2xl border border-gray-200 text-[11px] leading-relaxed text-gray-600">
+                <p class="font-bold text-black uppercase mb-1">Statutory Regulatory Disclosure:</p>
+                <p>
+                    <strong>Mutual Fund investments are subject to market risks, read all scheme related documents carefully.</strong> MK JHA operates in the capacity of an AMFI-Registered Mutual Fund Distributor (MFD) offering execution-only and distribution services. Nothing contained within this website constitutes direct asset management advice or a guarantee of future returns. Taxation and statutory filing assistance are carried out in reliance upon records furnished by the tax assessee.
+                </p>
+            </div>
+
+            <div class="text-center text-gray-400 text-[11px]">
+                &copy; 2026 MK JHA. All Rights Reserved. Engineered for Precision & Compliance.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Liquid WhatsApp Button -->
+    <a href="https://wa.me/91XXXXXXXXXX?text=Hello%20MK%20Jha%20Ji,%20I%20would%20like%20to%20consult%20regarding%20Mutual%20Funds%20and%20Tax%20Filing." target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-black/80 hover:bg-black text-white liquid-pill rounded-full flex items-center justify-center text-2xl shadow-2xl transition hover:scale-105 border border-white">
+        <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+    </a>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script>
+        // Responsive Navigation Control
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Dynamic Systematic Investment Plan Formula
+        const amountInput = document.getElementById('sip-amount');
+        const rateInput = document.getElementById('sip-rate');
+        const yearsInput = document.getElementById('sip-years');
+
+        const amountTxt = document.getElementById('sip-amount-txt');
+        const rateTxt = document.getElementById('sip-rate-txt');
+        const yearsTxt = document.getElementById('sip-years-txt');
+
+        const resInvested = document.getElementById('res-invested');
+        const resGain = document.getElementById('res-gain');
+        const resTotal = document.getElementById('res-total');
+
+        function formatCurrency(val) {
+            return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(Math.round(val));
+        }
+
+        function computeMaturity() {
+            const P = parseFloat(amountInput.value);
+            const annualRate = parseFloat(rateInput.value);
+            const years = parseFloat(yearsInput.value);
+
+            amountTxt.innerText = "₹ " + formatCurrency(P);
+            rateTxt.innerText = annualRate + "%";
+            yearsTxt.innerText = years + " Years";
+
+            const i = (annualRate / 100) / 12;
+            const n = years * 12;
+
+            // Maturity = P * [((1 + i)^n - 1) / i] * (1 + i)
+            const maturity = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+            const totalInvested = P * n;
+            const profit = maturity - totalInvested;
+
+            resInvested.innerText = "₹ " + formatCurrency(totalInvested);
+            resGain.innerText = "₹ " + formatCurrency(profit);
+            resTotal.innerText = "₹ " + formatCurrency(maturity);
+        }
+
+        amountInput.addEventListener('input', computeMaturity);
+        rateInput.addEventListener('input', computeMaturity);
+        yearsInput.addEventListener('input', computeMaturity);
+        computeMaturity();
+
+        // Lead Dispatch via WhatsApp API
+        const form = document.getElementById('consultation-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('client-name').value;
+            const phone = document.getElementById('client-phone').value;
+            const service = document.getElementById('client-service').value;
+            const context = document.getElementById('client-context').value;
+
+            // Target Consultant WhatsApp Number
+            const consultantContact = "91XXXXXXXXXX";
+
+            const dispatchMessage = `*Client Inquiry - MK JHA Portal*%0A%0A` +
+                                    `*Name:* ${encodeURIComponent(name)}%0A` +
+                                    `*Mobile:* ${encodeURIComponent(phone)}%0A` +
+                                    `*Service Area:* ${encodeURIComponent(service)}%0A` +
+                                    `*Client Notes:* ${encodeURIComponent(context || 'Not Specified')}`;
+
+            window.open(`https://wa.me/${consultantContact}?text=${dispatchMessage}`, '_blank');
+        });
+    </script>
+</body>
+</html>
