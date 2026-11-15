@@ -3,693 +3,776 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>RAMMS ACOUSTIC MODEM v6.0 | Dual-Tone Air-Gap Protocol</title>
+  <title>RAMMS ACOUSTIC OS v7.0 | Enterprise Air-Gap Telemetry</title>
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#050811">
+  <meta name="theme-color" content="#030712">
 
   <style>
     :root {
-      --bg-dark: #050811;
-      --panel-bg: rgba(13, 19, 34, 0.96);
-      --border-line: rgba(56, 189, 248, 0.35);
-      --accent-cyan: #38BDF8;
-      --accent-green: #10B981;
-      --accent-amber: #F59E0B;
-      --accent-red: #EF4444;
-      --text-main: #F8FAFC;
-      --text-dim: #94A3B8;
+      --bg-core: #030712;
+      --surface: rgba(11, 18, 33, 0.92);
+      --surface-border: rgba(56, 189, 248, 0.28);
+      --cyan: #38BDF8;
+      --cyan-glow: rgba(56, 189, 248, 0.35);
+      --emerald: #10B981;
+      --emerald-glow: rgba(16, 185, 129, 0.35);
+      --danger: #EF4444;
+      --text-primary: #F8FAFC;
+      --text-muted: #94A3B8;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
-      user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body, html {
       width: 100%;
       min-height: 100dvh;
-      overflow-y: auto;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
+      background-color: var(--bg-core);
+      color: var(--text-primary);
       background-image: 
-        linear-gradient(rgba(56, 189, 248, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56, 189, 248, 0.035) 1px, transparent 1px);
-      background-size: 28px 28px;
+        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.08), transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 30px 30px, 30px 30px;
+      overflow-x: hidden;
     }
 
-    /* Role Selector Screen */
-    #roleSelectorScreen {
+    .hidden {
+      display: none !important;
+    }
+
+    /* BOOT OVERLAY */
+    .boot-overlay {
       min-height: 100dvh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 20px;
+    }
+
+    .boot-container {
+      max-width: 820px;
+      width: 100%;
       text-align: center;
     }
 
-    .boot-title {
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: var(--accent-cyan);
-      margin-bottom: 6px;
-    }
-
-    .boot-sub {
+    .sys-tag {
+      display: inline-block;
       font-size: 11px;
-      color: var(--text-dim);
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--surface-border);
+      padding: 5px 14px;
+      border-radius: 99px;
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 900;
       letter-spacing: 1.5px;
-      margin-bottom: 26px;
+      margin-bottom: 8px;
     }
 
-    .role-cards {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 720px;
-      width: 100%;
+    .hero-title span {
+      color: var(--cyan);
     }
 
-    .role-btn {
-      flex: 1;
-      min-width: 260px;
-      background: var(--panel-bg);
-      border: 1px solid var(--border-line);
-      border-radius: 14px;
-      padding: 22px 18px;
-      cursor: pointer;
+    .hero-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 1.2px;
+      margin-bottom: 30px;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .role-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 26px 22px;
       text-align: left;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .role-btn:active { transform: scale(0.97); }
-    .role-tag {
+    .role-card:active {
+      transform: scale(0.98);
+    }
+
+    .tx-theme:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
+    }
+
+    .rx-theme:hover {
+      border-color: var(--emerald);
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+    }
+
+    .card-badge {
       font-size: 10px;
       font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 4px;
-      display: inline-block;
+      letter-spacing: 1px;
+      color: var(--text-muted);
       margin-bottom: 10px;
     }
 
-    .role-name { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 6px; }
-    .role-desc { font-size: 12px; color: var(--text-dim); line-height: 1.4; }
+    .role-card h2 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
 
-    /* Main Terminal */
-    #mainTerminal {
-      display: none;
-      max-width: 900px;
+    .role-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .launch-link {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--cyan);
+    }
+
+    .rx-theme .launch-link {
+      color: var(--emerald);
+    }
+
+    /* MAIN COMMAND CENTER */
+    .app-shell {
+      max-width: 960px;
       margin: 0 auto;
-      padding: 12px 16px;
       min-height: 100dvh;
+      padding: 14px 16px;
+      display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 12px;
     }
 
-    .topbar {
+    .hud-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: var(--panel-bg);
-      border: 1px solid var(--border-line);
-      padding: 10px 14px;
-      border-radius: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      padding: 12px 16px;
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
     }
 
-    .brand { font-size: 12px; font-weight: 800; letter-spacing: 1px; color: var(--accent-cyan); }
-    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .hud-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-    .status-badge {
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    .hud-title {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .hud-meta {
+      font-size: 10px;
+      color: var(--emerald);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .hud-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .snr-pill {
       font-size: 10px;
       font-weight: 800;
       padding: 4px 10px;
-      border-radius: 20px;
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      color: var(--accent-cyan);
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: var(--emerald);
     }
 
-    .switch-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #FFF;
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 10px;
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--text-primary);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
       font-weight: 700;
       cursor: pointer;
     }
 
-    .visualizer-box {
-      background: var(--panel-bg);
-      border: 1px solid var(--border-line);
-      border-radius: 12px;
-      padding: 10px 14px;
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      backdrop-filter: blur(12px);
     }
 
-    .box-header {
+    .panel-top {
       display: flex;
       justify-content: space-between;
-      font-size: 10px;
-      font-weight: 700;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 800;
       letter-spacing: 1px;
-      color: var(--text-dim);
-      margin-bottom: 6px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
     }
 
-    #spectrumCanvas {
+    .mono-cyan { color: var(--cyan); }
+    .mono-green { color: var(--emerald); }
+
+    #fftCanvas {
       width: 100%;
-      height: 100px;
-      background: #03050A;
+      height: 110px;
+      background: #02050D;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
+      border-radius: 10px;
       display: block;
     }
 
-    .workspace-card {
+    .workspace {
       flex: 1;
-      background: var(--panel-bg);
-      border: 1px solid var(--border-line);
-      border-radius: 14px;
-      padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 12px;
     }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    textarea#txInput {
+    textarea#payloadInput {
       width: 100%;
-      min-height: 95px;
       flex: 1;
-      background: #03050A;
-      border: 1px solid rgba(56, 189, 248, 0.4);
+      min-height: 110px;
+      background: #02050D;
+      border: 1px solid rgba(56, 189, 248, 0.35);
       border-radius: 10px;
-      color: var(--accent-cyan);
-      font-size: 22px;
+      color: var(--cyan);
+      font-size: 24px;
       font-weight: 800;
-      padding: 14px;
+      letter-spacing: 1.5px;
+      padding: 16px;
       resize: none;
       outline: none;
-      user-select: text;
     }
 
-    .rx-screen {
+    .console-output {
       width: 100%;
-      min-height: 110px;
       flex: 1;
-      background: #03050A;
-      border: 1px solid rgba(16, 185, 129, 0.45);
+      min-height: 120px;
+      background: #02050D;
+      border: 1px solid rgba(16, 185, 129, 0.4);
       border-radius: 10px;
-      color: var(--accent-green);
-      font-size: 28px;
+      color: var(--emerald);
+      font-size: 30px;
       font-weight: 900;
-      letter-spacing: 2px;
-      padding: 16px;
+      letter-spacing: 2.5px;
+      padding: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       word-break: break-word;
+      box-shadow: inset 0 0 30px rgba(16, 185, 129, 0.07);
     }
 
-    .action-row { display: flex; gap: 10px; align-items: center; }
+    .control-bar {
+      display: flex;
+      gap: 12px;
+    }
 
-    .btn-main {
+    .btn-action {
       flex: 1;
-      padding: 15px 18px;
+      padding: 16px 20px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
       border: none;
       cursor: pointer;
     }
 
-    .btn-tx { background: linear-gradient(135deg, #0284C7, #2563EB); color: #FFF; }
-    .btn-rx { background: linear-gradient(135deg, #059669, #10B981); color: #FFF; }
-
-    .btn-sub {
-      background: rgba(255, 255, 255, 0.1);
+    .btn-cyan {
+      background: linear-gradient(135deg, #0284C7, #2563EB);
       color: #FFF;
-      padding: 15px 16px;
+      box-shadow: 0 4px 20px var(--cyan-glow);
+    }
+
+    .btn-emerald {
+      background: linear-gradient(135deg, #059669, #10B981);
+      color: #FFF;
+      box-shadow: 0 4px 20px var(--emerald-glow);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-primary);
+      padding: 16px 20px;
       border-radius: 10px;
       font-size: 12px;
-      font-weight: 700;
-      border: none;
+      font-weight: 800;
       cursor: pointer;
     }
 
-    .footer {
+    .hud-footer {
       text-align: center;
       font-size: 10px;
-      color: var(--text-dim);
+      color: var(--text-muted);
       letter-spacing: 1.5px;
     }
-    .footer strong { color: var(--accent-cyan); }
+
+    .hud-footer strong {
+      color: var(--cyan);
+    }
   </style>
 </head>
 <body>
 
-  <!-- SCREEN 1: ROLE SELECTOR -->
-  <div id="roleSelectorScreen">
-    <div class="boot-title">RAMMS ACOUSTIC MODEM v6.0</div>
-    <div class="boot-sub">DUAL-TONE TELECOM PROTOCOL // RAMMS GROUPS</div>
+  <!-- BOOT & ROLE SELECTION OVERLAY -->
+  <section id="bootScreen" class="boot-overlay">
+    <div class="boot-container">
+      <div class="sys-tag">RAMMS GROUPS // DEFENSE ACOUSTIC DIVISION</div>
+      <h1 class="hero-title">ACOUSTIC TELEMETRY OS <span>v7.0</span></h1>
+      <p class="hero-sub">HIGH-PASS NOISE-IMMUNE AIR-GAP DATA LINK (7.2 kHz – 13.2 kHz)</p>
 
-    <div class="role-cards">
-      <div class="role-btn tx-role" onclick="launchMode('TX')">
-        <span class="role-tag" style="background:rgba(56,189,248,0.15); color:#38BDF8; border:1px solid #38BDF8;">MOBILE PHONE</span>
-        <div class="role-name">1. TRANSMITTER (TX)</div>
-        <div class="role-desc">Dual-frequency chord encoder (Immune to background noise).</div>
-      </div>
+      <div class="role-grid">
+        <button class="role-card tx-theme" onclick="initTerminal('TX')">
+          <div class="card-badge">NODE 01 // MOBILE</div>
+          <h2>TRANSMITTER (TX)</h2>
+          <p>Dual-Tone FSK Acoustic Modulator with Ultrasonic Carrier Synthesis.</p>
+          <span class="launch-link">INITIALIZE TRANSMITTER →</span>
+        </button>
 
-      <div class="role-btn rx-role" onclick="launchMode('RX')">
-        <span class="role-tag" style="background:rgba(16,185,129,0.15); color:#10B981; border:1px solid #10B981;">GALAXY TAB A8</span>
-        <div class="role-name">2. RECEIVER (RX)</div>
-        <div class="role-desc">Relative-peak DTMF harmonic decoder with auto-gain lock.</div>
+        <button class="role-card rx-theme" onclick="initTerminal('RX')">
+          <div class="card-badge">NODE 02 // GALAXY TAB A8</div>
+          <h2>RECEIVER (RX)</h2>
+          <p>6.5 kHz Biquad Crowd-Noise Rejection Filter & Real-Time FFT Decoder.</p>
+          <span class="launch-link">INITIALIZE RECEIVER →</span>
+        </button>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- SCREEN 2: MAIN TERMINAL -->
-  <div id="mainTerminal">
-    <header class="topbar">
-      <div class="brand" id="headerTitle">RAMMS ACOUSTIC TERMINAL</div>
-      <div class="top-actions">
-        <span id="statusBadge" class="status-badge">READY</span>
-        <button class="switch-btn" onclick="resetRole()">SWITCH</button>
+  <!-- MAIN COMMAND CENTER -->
+  <main id="commandCenter" class="app-shell hidden">
+    <header class="hud-header">
+      <div class="hud-left">
+        <span class="pulse-dot" id="liveDot"></span>
+        <div>
+          <div class="hud-title" id="nodeTitle">RAMMS ACOUSTIC NODE</div>
+          <div class="hud-meta" id="filterStatus">BIQUAD FILTER: 6.5 kHz HIGH-PASS ARMED</div>
+        </div>
+      </div>
+      <div class="hud-right">
+        <span class="snr-pill" id="snrBadge">NOISE CUT: 100%</span>
+        <button class="btn-ghost" onclick="switchNode()">SWITCH NODE</button>
       </div>
     </header>
 
-    <section class="visualizer-box">
-      <div class="box-header">
-        <span>DUAL-TONE BAND (3.0 kHz – 8.0 kHz)</span>
-        <span id="freqReadout" style="color:#38BDF8;">IDLE</span>
+    <!-- GPU-ACCELERATED SPECTRUM ANALYZER -->
+    <section class="panel spectrum-panel">
+      <div class="panel-top">
+        <span>FILTERED CARRIER SPECTRUM (6.8 kHz – 13.6 kHz)</span>
+        <span id="telemetryReadout" class="mono-cyan">CARRIER STANDBY</span>
       </div>
-      <canvas id="spectrumCanvas"></canvas>
+      <canvas id="fftCanvas"></canvas>
     </section>
 
-    <!-- TRANSMITTER VIEW (MOBILE) -->
-    <div id="txView" class="workspace-card" style="display:none;">
-      <div class="card-header">
-        <span style="color:#38BDF8;">MOBILE TRANSMITTER (TX)</span>
-        <span style="font-size:11px; color:#94A3B8;">VOLUME: 85%</span>
+    <!-- TX WORKSPACE (MOBILE) -->
+    <section id="txPanel" class="panel workspace hidden">
+      <div class="panel-top">
+        <span>PAYLOAD ENCODER // DUAL-TONE MATRIX</span>
+        <span>MAX 32 CHARS</span>
       </div>
-      <textarea id="txInput" maxlength="25" placeholder="Enter message...">RAMMS SECURE</textarea>
-      <div class="action-row">
-        <button id="btnTransmit" class="btn-main btn-tx" onclick="transmitData()">TRANSMIT MESSAGE</button>
-        <button class="btn-sub" onclick="sendPing()">TEST PING</button>
+      <textarea id="payloadInput" maxlength="32" placeholder="TYPE MESSAGE FOR AIR-GAP TRANSFER...">RAMMS SECURE</textarea>
+      <div class="control-bar">
+        <button id="btnSend" class="btn-action btn-cyan" onclick="startTransmission()">TRANSMIT PAYLOAD</button>
+        <button class="btn-secondary" onclick="sendVerifyPing()">PING TEST</button>
       </div>
-    </div>
+    </section>
 
-    <!-- RECEIVER VIEW (TAB A8) -->
-    <div id="rxView" class="workspace-card" style="display:none;">
-      <div class="card-header">
-        <span style="color:#10B981;">TAB A8 RECEIVER (RX)</span>
-        <span id="signalStrength" style="font-size:11px; color:#94A3B8;">GAIN: AUTO</span>
+    <!-- RX WORKSPACE (TAB A8) -->
+    <section id="rxPanel" class="panel workspace hidden">
+      <div class="panel-top">
+        <span>DECODED STREAM // CROWD-NOISE IMMUNE</span>
+        <span id="signalLockLabel" class="mono-green">LINK: READY</span>
       </div>
-      <div id="rxOutput" class="rx-screen">TAP START RECEIVER BELOW</div>
-      <div class="action-row">
-        <button id="btnListen" class="btn-main btn-rx" onclick="toggleReceiver()">START RECEIVER</button>
-        <button class="btn-sub" onclick="clearReceiver()">CLEAR</button>
+      <div id="decodedConsole" class="console-output">TAP ACTIVATE DECODER BELOW</div>
+      <div class="control-bar">
+        <button id="btnRxToggle" class="btn-action btn-emerald" onclick="toggleDecoder()">ACTIVATE DECODER</button>
+        <button class="btn-secondary" onclick="clearConsole()">CLEAR</button>
       </div>
-    </div>
+    </section>
 
-    <footer class="footer">
-      ENGINEERED BY <strong>RAMMS GROUPS</strong> // DUAL-TONE AIR-GAP MODEM
+    <footer class="hud-footer">
+      ARCHITECTED BY <strong>RAMMS GROUPS</strong> // ZERO-NETWORK ACOUSTIC PROTOCOL
     </footer>
-  </div>
+  </main>
 
-<script>
-  /**
-   * RAMMS ACOUSTIC MODEM v6.0 — DUAL-TONE (DTMF-STYLE) MATRIX PROTOCOL
-   * Why Dual-Tone? A single tone can be mimicked by room echo or background noise.
-   * Requiring TWO exact simultaneous frequencies (1 Low-Bank + 1 High-Bank)
-   * makes false characters mathematically impossible!
-   *
-   * Low Bank (Row 0-5):  3200, 3650, 4100, 4550, 5000, 5450 Hz
-   * High Bank (Col 0-5): 6000, 6450, 6900, 7350, 7800, 8250 Hz
-   * 6 x 6 = 36 Symbols (A-Z, 0-9, SPACE, START, END)
-   */
+  <script>
+    const LOW_BANK  = [7200, 7650, 8100, 8550, 9000, 9450];
+    const HIGH_BANK = [10100, 10550, 11000, 11450, 11900, 12350, 12800];
 
-  const LOW_FREQS  = [3200, 3650, 4100, 4550, 5000, 5450];
-  const HIGH_FREQS = [6000, 6450, 6900, 7350, 7800, 8250];
+    const CHAR_GRID = [
+      ['^', 'A', 'B', 'C', 'D', 'E', 'F'],
+      ['G', 'H', 'I', 'J', 'K', 'L', 'M'],
+      ['N', 'O', 'P', 'Q', 'R', 'S', 'T'],
+      ['U', 'V', 'W', 'X', 'Y', 'Z', ' '],
+      ['0', '1', '2', '3', '4', '5', '6'],
+      ['7', '8', '9', '-', '.', '!', '$']
+    ];
 
-  // 36-Symbol Matrix:
-  // [0,0] = START ('^'), [5,5] = END ('$'), [5,4] = SPACE (' ')
-  const SYMBOL_MATRIX = [
-    ['^', 'A', 'B', 'C', 'D', 'E'],
-    ['F', 'G', 'H', 'I', 'J', 'K'],
-    ['L', 'M', 'N', 'O', 'P', 'Q'],
-    ['R', 'S', 'T', 'U', 'V', 'W'],
-    ['X', 'Y', 'Z', '0', '1', '2'],
-    ['3', '4', '5', '6', ' ', '$']
-  ];
-  // Extra digits 7,8,9 mapped cleanly if needed: let's include all 0-9!
-  const FULL_CHARSET = "^ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 $";
-  // Map index 0..35 to (row, col) in 6x6 matrix:
-  // 0:'^', 1..26:'A'..'Z', 27..33:'0'..'6', 34:' ', 35:'$'
-  // Let's make 6x6 cover A-Z (26) + 0-7 (8) + START + END = 36, or 6x7 (42) for ALL A-Z + 0-9 + SPACE!
+    const SYMBOL_MS = 0.125;
+    const SILENCE_MS = 0.070;
 
-  const ROWS = [3100, 3550, 4000, 4450, 4900, 5350];       // 6 Low Tones
-  const COLS = [5900, 6350, 6800, 7250, 7700, 8150, 8600]; // 7 High Tones (6x7 = 42 slots!)
+    let audioCtx = null;
+    let isSending = false;
+    let isDecoding = false;
+    let micStream = null;
+    let analyser = null;
+    let rafId = null;
 
-  const MATRIX_6x7 = [
-    ['^', 'A', 'B', 'C', 'D', 'E', 'F'],
-    ['G', 'H', 'I', 'J', 'K', 'L', 'M'],
-    ['N', 'O', 'P', 'Q', 'R', 'S', 'T'],
-    ['U', 'V', 'W', 'X', 'Y', 'Z', ' '],
-    ['0', '1', '2', '3', '4', '5', '6'],
-    ['7', '8', '9', '-', '.', '!', '$']
-  ];
+    const canvas = document.getElementById('fftCanvas');
+    const ctx = canvas.getContext('2d');
+    const telemetryReadout = document.getElementById('telemetryReadout');
+    const decodedConsole = document.getElementById('decodedConsole');
+    const signalLockLabel = document.getElementById('signalLockLabel');
+    const btnSend = document.getElementById('btnSend');
+    const btnRxToggle = document.getElementById('btnRxToggle');
 
-  const TONE_TIME = 0.130; // 130ms dual-tone burst
-  const GAP_TIME  = 0.075; // 75ms silence gap
-
-  let audioCtx = null;
-  let isTransmitting = false;
-  let isListening = false;
-  let micStream = null;
-  let analyser = null;
-  let animId = null;
-
-  const canvas = document.getElementById('spectrumCanvas');
-  const ctx = canvas.getContext('2d');
-  const statusBadge = document.getElementById('statusBadge');
-  const freqReadout = document.getElementById('freqReadout');
-  const rxOutput = document.getElementById('rxOutput');
-  const signalStrength = document.getElementById('signalStrength');
-  const btnTransmit = document.getElementById('btnTransmit');
-  const btnListen = document.getElementById('btnListen');
-
-  function launchMode(role) {
-    document.getElementById('roleSelectorScreen').style.display = 'none';
-    document.getElementById('mainTerminal').style.display = 'flex';
-
-    if (role === 'TX') {
-      document.getElementById('headerTitle').innerText = 'RAMMS TX // MOBILE';
-      document.getElementById('txView').style.display = 'flex';
-      document.getElementById('rxView').style.display = 'none';
-    } else {
-      document.getElementById('headerTitle').innerText = 'RAMMS RX // TAB A8';
-      document.getElementById('txView').style.display = 'none';
-      document.getElementById('rxView').style.display = 'flex';
-      statusBadge.style.color = '#10B981';
-      statusBadge.style.borderColor = '#10B981';
-    }
-  }
-
-  function resetRole() {
-    stopReceiver();
-    document.getElementById('mainTerminal').style.display = 'none';
-    document.getElementById('roleSelectorScreen').style.display = 'flex';
-  }
-
-  function initAudio() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-  }
-
-  function findCharCoords(ch) {
-    for (let r = 0; r < 6; r++) {
-      for (let c = 0; c < 7; c++) {
-        if (MATRIX_6x7[r][c] === ch) return { fLow: ROWS[r], fHigh: COLS[c] };
+    function resizeCanvasOnce() {
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        canvas.width = rect.width * window.devicePixelRatio;
+        canvas.height = rect.height * window.devicePixelRatio;
+        ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
       }
     }
-    return { fLow: ROWS[3], fHigh: COLS[6] }; // Default to SPACE
-  }
+    window.addEventListener('resize', resizeCanvasOnce);
 
-  function sendPing() {
-    playChordSequence(['^', 'O', 'K', '$']);
-  }
+    function initTerminal(mode) {
+      document.getElementById('bootScreen').classList.add('hidden');
+      document.getElementById('commandCenter').classList.remove('hidden');
+      resizeCanvasOnce();
 
-  function transmitData() {
-    if (isTransmitting) return;
-    const raw = document.getElementById('txInput').value.trim().toUpperCase();
-    if (!raw) return;
-
-    const chars = ['^', '^', ...raw.split(''), '$'];
-    playChordSequence(chars);
-  }
-
-  function playChordSequence(charList) {
-    if (isTransmitting) return;
-    initAudio();
-    isTransmitting = true;
-    btnTransmit.disabled = true;
-    statusBadge.innerText = 'TRANSMITTING...';
-
-    const oscLow = audioCtx.createOscillator();
-    const oscHigh = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    oscLow.type = 'sine';
-    oscHigh.type = 'sine';
-    gain.gain.value = 0.0001;
-
-    oscLow.connect(gain);
-    oscHigh.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    let t = audioCtx.currentTime + 0.05;
-    oscLow.start(t);
-    oscHigh.start(t);
-
-    charList.forEach((ch) => {
-      const { fLow, fHigh } = findCharCoords(ch);
-      const tEnd = t + TONE_TIME;
-
-      oscLow.frequency.setValueAtTime(fLow, t);
-      oscHigh.frequency.setValueAtTime(fHigh, t);
-
-      gain.gain.setValueAtTime(0.0001, t);
-      gain.gain.linearRampToValueAtTime(0.45, t + 0.015);
-      gain.gain.setValueAtTime(0.45, tEnd - 0.015);
-      gain.gain.linearRampToValueAtTime(0.0001, tEnd);
-
-      t = tEnd + GAP_TIME;
-    });
-
-    const totalMs = (t - audioCtx.currentTime) * 1000;
-    oscLow.stop(t + 0.05);
-    oscHigh.stop(t + 0.05);
-
-    let elapsed = 0;
-    const timer = setInterval(() => {
-      elapsed += 75;
-      const pct = Math.min(100, Math.round((elapsed / totalMs) * 100));
-      btnTransmit.innerText = `BROADCASTING: ${pct}%`;
-      freqReadout.innerText = `DUAL-TONE: ${pct}%`;
-      drawTxWave(pct);
-
-      if (elapsed >= totalMs) {
-        clearInterval(timer);
-        isTransmitting = false;
-        btnTransmit.disabled = false;
-        btnTransmit.innerText = 'TRANSMIT MESSAGE';
-        statusBadge.innerText = 'SENT ✔';
-        freqReadout.innerText = 'IDLE';
+      if (mode === 'TX') {
+        document.getElementById('nodeTitle').innerText = 'NODE 01 // MOBILE TRANSMITTER';
+        document.getElementById('txPanel').classList.remove('hidden');
+        document.getElementById('rxPanel').classList.add('hidden');
+      } else {
+        document.getElementById('nodeTitle').innerText = 'NODE 02 // TAB A8 RECEIVER';
+        document.getElementById('txPanel').classList.add('hidden');
+        document.getElementById('rxPanel').classList.remove('hidden');
+        document.getElementById('liveDot').style.background = '#10B981';
+        document.getElementById('liveDot').style.boxShadow = '0 0 12px #10B981';
       }
-    }, 75);
-  }
-
-  function drawTxWave(phase) {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = '#38BDF8';
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    for (let x = 0; x < canvas.width; x++) {
-      const y = canvas.height / 2 + (Math.sin(x * 0.12 + phase) + Math.sin(x * 0.23 - phase)) * 18;
-      if (x === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-  }
-
-  // RECEIVER: Relative-Peak Dual-Tone Decoder (Works at any volume/distance!)
-  async function toggleReceiver() {
-    if (isListening) {
-      stopReceiver();
-      return;
     }
 
-    try {
-      initAudio();
-      micStream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: false,
-          noiseSuppression: false,
-          autoGainControl: false
-        }
-      });
-
-      const source = audioCtx.createMediaStreamSource(micStream);
-      analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 4096;
-      analyser.smoothingTimeConstant = 0.12;
-      source.connect(analyser);
-
-      isListening = true;
-      btnListen.innerText = 'STOP RECEIVER';
-      btnListen.style.background = '#EF4444';
-      statusBadge.innerText = 'LISTENING LIVE';
-      rxOutput.innerText = 'READY FOR SIGNAL...';
-
-      decodeLoop();
-    } catch (e) {
-      alert('Please allow Microphone permission in Chrome.');
+    function switchNode() {
+      stopDecoder();
+      document.getElementById('commandCenter').classList.add('hidden');
+      document.getElementById('bootScreen').classList.remove('hidden');
     }
-  }
 
-  function stopReceiver() {
-    isListening = false;
-    if (micStream) micStream.getTracks().forEach(t => t.stop());
-    if (animId) cancelAnimationFrame(animId);
-    btnListen.innerText = 'START RECEIVER';
-    btnListen.style.background = 'linear-gradient(135deg, #059669, #10B981)';
-    statusBadge.innerText = 'STANDBY';
-  }
-
-  function clearReceiver() {
-    rxOutput.innerText = isListening ? 'READY FOR SIGNAL...' : 'TAP START RECEIVER BELOW';
-  }
-
-  function decodeLoop() {
-    const bufferLen = analyser.frequencyBinCount;
-    const data = new Uint8Array(bufferLen);
-    const binHz = audioCtx.sampleRate / analyser.fftSize;
-
-    let sessionActive = false;
-    let symbolLocked = false;
-    let candidateChar = null;
-    let stableCount = 0;
-    let receivedText = '';
-
-    function getBandEnergy(targetFreq) {
-      const center = Math.round(targetFreq / binHz);
-      let peak = 0;
-      for (let i = center - 2; i <= center + 2; i++) {
-        if (data[i] > peak) peak = data[i];
+    function ensureAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
-      return peak;
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
     }
 
-    function detectDualToneSymbol() {
-      // Find strongest Low-Bank tone and its runner-up
-      let bestRow = -1, bestRowVal = 0, secondRowVal = 0;
-      ROWS.forEach((f, idx) => {
-        const val = getBandEnergy(f);
-        if (val > bestRowVal) {
-          secondRowVal = bestRowVal;
-          bestRowVal = val;
-          bestRow = idx;
-        } else if (val > secondRowVal) {
-          secondRowVal = val;
-        }
-      });
-
-      // Find strongest High-Bank tone and its runner-up
-      let bestCol = -1, bestColVal = 0, secondColVal = 0;
-      COLS.forEach((f, idx) => {
-        const val = getBandEnergy(f);
-        if (val > bestColVal) {
-          secondColVal = bestColVal;
-          bestColVal = val;
-          bestCol = idx;
-        } else if (val > secondColVal) {
-          secondColVal = val;
-        }
-      });
-
-      // Relative Dominance Check: Both peaks must stand clearly above neighbor tones (+25 units)
-      const rowClear = bestRowVal > 75 && (bestRowVal - secondRowVal) > 22;
-      const colClear = bestColVal > 75 && (bestColVal - secondColVal) > 22;
-
-      if (rowClear && colClear) {
-        return {
-          char: MATRIX_6x7[bestRow][bestCol],
-          strength: Math.round(((bestRowVal + bestColVal) / 510) * 100)
-        };
-      }
-      return null;
-    }
-
-    function loop() {
-      if (!isListening) return;
-      analyser.getByteFrequencyData(data);
-
-      // Draw Spectrum (2.8 kHz to 9.0 kHz)
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const minBin = Math.floor(2800 / binHz);
-      const maxBin = Math.ceil(9000 / binHz);
-      const barW = canvas.width / (maxBin - minBin);
-
-      for (let i = minBin; i <= maxBin; i++) {
-        const v = data[i];
-        const h = (v / 255) * canvas.height;
-        ctx.fillStyle = v > 95 ? '#10B981' : '#38BDF8';
-        ctx.fillRect((i - minBin) * barW, canvas.height - h, barW - 1, h);
-      }
-
-      const detected = detectDualToneSymbol();
-
-      if (!detected) {
-        // Silence gap -> unlock next symbol
-        symbolLocked = false;
-        candidateChar = null;
-        stableCount = 0;
-      } else if (!symbolLocked) {
-        signalStrength.innerText = `SIGNAL: ${detected.strength}%`;
-        freqReadout.innerText = `LOCKED: [${detected.char}]`;
-
-        if (detected.char === candidateChar) {
-          stableCount++;
-          if (stableCount >= 2) {
-            symbolLocked = true;
-            const ch = detected.char;
-
-            if (ch === '^') {
-              sessionActive = true;
-              receivedText = '';
-              rxOutput.innerText = 'RECEIVING...';
-            } else if (ch === '$' && sessionActive) {
-              sessionActive = false;
-              if (receivedText.length > 0) rxOutput.innerText = receivedText;
-            } else if (sessionActive && ch !== '^' && ch !== '$') {
-              receivedText += ch;
-              rxOutput.innerText = receivedText;
-            }
+    function getTonePair(char) {
+      for (let r = 0; r < 6; r++) {
+        for (let c = 0; c < 7; c++) {
+          if (CHAR_GRID[r][c] === char) {
+            return { low: LOW_BANK[r], high: HIGH_BANK[c] };
           }
-        } else {
-          candidateChar = detected.char;
-          stableCount = 1;
         }
       }
-
-      animId = requestAnimationFrame(loop);
+      return { low: LOW_BANK[3], high: HIGH_BANK[6] };
     }
 
-    animId = requestAnimationFrame(loop);
-  }
-</script>
+    function sendVerifyPing() {
+      broadcastChars(['^', 'P', 'I', 'N', 'G', ' ', 'O', 'K', '$']);
+    }
+
+    function startTransmission() {
+      if (isSending) return;
+      const text = document.getElementById('payloadInput').value.trim().toUpperCase();
+      if (!text) return;
+      broadcastChars(['^', '^', ...text.split(''), '$']);
+    }
+
+    function broadcastChars(seq) {
+      if (isSending) return;
+      ensureAudioContext();
+      isSending = true;
+      btnSend.disabled = true;
+
+      const osc1 = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
+      const masterGain = audioCtx.createGain();
+
+      osc1.type = 'sine';
+      osc2.type = 'sine';
+      masterGain.gain.value = 0.0001;
+
+      osc1.connect(masterGain);
+      osc2.connect(masterGain);
+      masterGain.connect(audioCtx.destination);
+
+      let cursor = audioCtx.currentTime + 0.04;
+      osc1.start(cursor);
+      osc2.start(cursor);
+
+      seq.forEach((ch) => {
+        const { low, high } = getTonePair(ch);
+        const end = cursor + SYMBOL_MS;
+
+        osc1.frequency.setValueAtTime(low, cursor);
+        osc2.frequency.setValueAtTime(high, cursor);
+
+        masterGain.gain.setValueAtTime(0.0001, cursor);
+        masterGain.gain.linearRampToValueAtTime(0.48, cursor + 0.012);
+        masterGain.gain.setValueAtTime(0.48, end - 0.012);
+        masterGain.gain.linearRampToValueAtTime(0.0001, end);
+
+        cursor = end + SILENCE_MS;
+      });
+
+      const durationMs = (cursor - audioCtx.currentTime) * 1000;
+      osc1.stop(cursor + 0.04);
+      osc2.stop(cursor + 0.04);
+
+      let elapsed = 0;
+      const interval = setInterval(() => {
+        elapsed += 70;
+        const pct = Math.min(100, Math.round((elapsed / durationMs) * 100));
+        btnSend.innerText = `TRANSMITTING: ${pct}%`;
+        telemetryReadout.innerText = `MODULATING: ${pct}%`;
+        renderTxWave(pct);
+
+        if (elapsed >= durationMs) {
+          clearInterval(interval);
+          isSending = false;
+          btnSend.disabled = false;
+          btnSend.innerText = 'TRANSMIT PAYLOAD';
+          telemetryReadout.innerText = 'BURST COMPLETE ✔';
+        }
+      }, 70);
+    }
+
+    function renderTxWave(phase) {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+      ctx.strokeStyle = '#38BDF8';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let x = 0; x < w; x += 3) {
+        const y = h / 2 + (Math.sin(x * 0.08 + phase) + Math.cos(x * 0.19 - phase)) * 18;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    async function toggleDecoder() {
+      if (isDecoding) {
+        stopDecoder();
+        return;
+      }
+
+      try {
+        ensureAudioContext();
+        micStream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: false,
+            noiseSuppression: false,
+            autoGainControl: false
+          }
+        });
+
+        const source = audioCtx.createMediaStreamSource(micStream);
+
+        const hpFilter1 = audioCtx.createBiquadFilter();
+        hpFilter1.type = 'highpass';
+        hpFilter1.frequency.value = 6500;
+        hpFilter1.Q.value = 1.2;
+
+        const hpFilter2 = audioCtx.createBiquadFilter();
+        hpFilter2.type = 'highpass';
+        hpFilter2.frequency.value = 6500;
+        hpFilter2.Q.value = 1.2;
+
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 4096;
+        analyser.smoothingTimeConstant = 0.1;
+
+        source.connect(hpFilter1);
+        hpFilter1.connect(hpFilter2);
+        hpFilter2.connect(analyser);
+
+        isDecoding = true;
+        btnRxToggle.innerText = 'STOP DECODER';
+        btnRxToggle.style.background = '#EF4444';
+        decodedConsole.innerText = 'LISTENING (CROWD NOISE FILTERED)...';
+        signalLockLabel.innerText = 'LINK: ARMED';
+
+        runFftDecoder();
+      } catch (err) {
+        alert('Microphone access denied. Enable mic permission in browser settings.');
+      }
+    }
+
+    function stopDecoder() {
+      isDecoding = false;
+      if (micStream) micStream.getTracks().forEach(t => t.stop());
+      if (rafId) cancelAnimationFrame(rafId);
+      btnRxToggle.innerText = 'ACTIVATE DECODER';
+      btnRxToggle.style.background = 'linear-gradient(135deg, #059669, #10B981)';
+      signalLockLabel.innerText = 'LINK: STANDBY';
+    }
+
+    function clearConsole() {
+      decodedConsole.innerText = isDecoding ? 'LISTENING (CROWD NOISE FILTERED)...' : 'TAP ACTIVATE DECODER BELOW';
+    }
+
+    function runFftDecoder() {
+      const bins = new Uint8Array(analyser.frequencyBinCount);
+      const hzPerBin = audioCtx.sampleRate / analyser.fftSize;
+
+      let activePacket = false;
+      let locked = false;
+      let lastCandidate = null;
+      let confirmFrames = 0;
+      let outputBuffer = '';
+
+      function peakAround(freq) {
+        const idx = Math.round(freq / hzPerBin);
+        let max = 0;
+        for (let i = idx - 2; i <= idx + 2; i++) {
+          if (bins[i] > max) max = bins[i];
+        }
+        return max;
+      }
+
+      function decodeFrame() {
+        let rBest = -1, r1 = 0, r2 = 0;
+        for (let r = 0; r < 6; r++) {
+          const v = peakAround(LOW_BANK[r]);
+          if (v > r1) { r2 = r1; r1 = v; rBest = r; }
+          else if (v > r2) { r2 = v; }
+        }
+
+        let cBest = -1, c1 = 0, c2 = 0;
+        for (let c = 0; c < 7; c++) {
+          const v = peakAround(HIGH_BANK[c]);
+          if (v > c1) { c2 = c1; c1 = v; cBest = c; }
+          else if (v > c2) { c2 = v; }
+        }
+
+        if (r1 > 70 && (r1 - r2) > 24 && c1 > 70 && (c1 - c2) > 24) {
+          return CHAR_GRID[rBest][cBest];
+        }
+        return null;
+      }
+
+      function loop() {
+        if (!isDecoding) return;
+        analyser.getByteFrequencyData(bins);
+
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        ctx.clearRect(0, 0, w, h);
+
+        const startBin = Math.floor(6800 / hzPerBin);
+        const endBin = Math.ceil(13400 / hzPerBin);
+        const step = Math.max(1, Math.floor((endBin - startBin) / 90));
+        const barW = w / ((endBin - startBin) / step);
+
+        let x = 0;
+        for (let i = startBin; i < endBin; i += step) {
+          const val = bins[i];
+          const barH = (val / 255) * h;
+          ctx.fillStyle = val > 90 ? '#10B981' : '#38BDF8';
+          ctx.fillRect(x, h - barH, barW - 1, barH);
+          x += barW;
+        }
+
+        const sym = decodeFrame();
+
+        if (!sym) {
+          locked = false;
+          lastCandidate = null;
+          confirmFrames = 0;
+        } else if (!locked) {
+          telemetryReadout.innerText = `CARRIER LOCK: [${sym}]`;
+          if (sym === lastCandidate) {
+            confirmFrames++;
+            if (confirmFrames >= 2) {
+              locked = true;
+              if (sym === '^') {
+                activePacket = true;
+                outputBuffer = '';
+                decodedConsole.innerText = 'RECEIVING STREAM...';
+                signalLockLabel.innerText = 'LINK: LOCKED';
+              } else if (sym === '$' && activePacket) {
+                activePacket = false;
+                signalLockLabel.innerText = 'LINK: COMPLETE';
+                if (outputBuffer.length > 0) decodedConsole.innerText = outputBuffer;
+              } else if (activePacket && sym !== '^' && sym !== '$') {
+                outputBuffer += sym;
+                decodedConsole.innerText = outputBuffer;
+              }
+            }
+          } else {
+            lastCandidate = sym;
+            confirmFrames = 1;
+          }
+        }
+
+        rafId = requestAnimationFrame(loop);
+      }
+
+      rafId = requestAnimationFrame(loop);
+    }
+  </script>
 </body>
 </html>
