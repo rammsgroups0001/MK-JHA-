@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>RAMMS ACOUSTIC MODEM v3.0 | Precision Guard-Gap Protocol</title>
+  <title>RAMMS ACOUSTIC MODEM v5.0 | Zero-Error Wideband Protocol</title>
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#050811">
 
   <style>
     :root {
       --bg-dark: #050811;
-      --panel-bg: rgba(13, 19, 34, 0.95);
+      --panel-bg: rgba(13, 19, 34, 0.96);
       --border-line: rgba(56, 189, 248, 0.3);
       --accent-cyan: #38BDF8;
       --accent-green: #10B981;
@@ -40,7 +40,6 @@
       background-size: 30px 30px;
     }
 
-    /* Role Selector Screen */
     #roleSelectorScreen {
       position: fixed;
       inset: 0;
@@ -66,7 +65,7 @@
       font-size: 11px;
       color: var(--text-dim);
       letter-spacing: 1.5px;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
     }
 
     .role-cards {
@@ -87,13 +86,9 @@
       padding: 24px 20px;
       cursor: pointer;
       text-align: left;
-      transition: transform 0.2s, border-color 0.2s;
     }
 
     .role-btn:active { transform: scale(0.97); }
-    .role-btn.tx-role:hover { border-color: var(--accent-cyan); }
-    .role-btn.rx-role:hover { border-color: var(--accent-green); }
-
     .role-tag {
       font-size: 10px;
       font-weight: 800;
@@ -106,7 +101,6 @@
     .role-name { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 6px; }
     .role-desc { font-size: 12px; color: var(--text-dim); line-height: 1.4; }
 
-    /* Main Terminal */
     #mainTerminal {
       display: none;
       max-width: 900px;
@@ -129,7 +123,6 @@
     }
 
     .brand { font-size: 12px; font-weight: 800; letter-spacing: 1px; color: var(--accent-cyan); }
-
     .top-actions { display: flex; align-items: center; gap: 8px; }
 
     .status-badge {
@@ -172,7 +165,7 @@
 
     #spectrumCanvas {
       width: 100%;
-      height: 120px;
+      height: 115px;
       background: #03050A;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
@@ -231,7 +224,6 @@
       justify-content: center;
       text-align: center;
       word-break: break-word;
-      box-shadow: inset 0 0 30px rgba(16, 185, 129, 0.06);
     }
 
     .action-row { display: flex; gap: 12px; align-items: center; }
@@ -274,20 +266,20 @@
 
   <!-- SCREEN 1: ROLE SELECTOR -->
   <div id="roleSelectorScreen">
-    <div class="boot-title">RAMMS ACOUSTIC MODEM v3.0</div>
-    <div class="boot-sub">SELF-CLOCKING MULTI-FREQUENCY PROTOCOL // RAMMS GROUPS</div>
+    <div class="boot-title">RAMMS ACOUSTIC MODEM v5.0</div>
+    <div class="boot-sub">WIDEBAND ANTI-ECHO PROTOCOL // RAMMS GROUPS</div>
 
     <div class="role-cards">
       <div class="role-btn tx-role" onclick="launchMode('TX')">
         <span class="role-tag" style="background:rgba(56,189,248,0.15); color:#38BDF8; border:1px solid #38BDF8;">MOBILE PHONE</span>
         <div class="role-name">1. TRANSMITTER (TX)</div>
-        <div class="role-desc">Encodes text into 16-Channel Guard-Interval acoustic pulses.</div>
+        <div class="role-desc">Wide-spaced 450Hz multi-tone acoustic encoder.</div>
       </div>
 
       <div class="role-btn rx-role" onclick="launchMode('RX')">
         <span class="role-tag" style="background:rgba(16,185,129,0.15); color:#10B981; border:1px solid #10B981;">GALAXY TAB A8</span>
         <div class="role-name">2. RECEIVER (RX)</div>
-        <div class="role-desc">Zero-drift FFT harmonic detector for error-free text decoding.</div>
+        <div class="role-desc">Auto-noise-floor calibrated decoder with zero character drift.</div>
       </div>
     </div>
   </div>
@@ -304,29 +296,29 @@
 
     <section class="visualizer-box">
       <div class="box-header">
-        <span>ACOUSTIC CARRIER BAND (12.8 kHz – 17.2 kHz)</span>
+        <span>ACOUSTIC TELEMETRY BAND (5.5 kHz – 11.5 kHz)</span>
         <span id="freqReadout" style="color:#38BDF8;">IDLE</span>
       </div>
       <canvas id="spectrumCanvas"></canvas>
     </section>
 
-    <!-- TRANSMITTER VIEW (MOBILE) -->
+    <!-- TRANSMITTER VIEW -->
     <div id="txView" class="workspace-card" style="display:none;">
       <div class="card-header">
         <span style="color:#38BDF8;">MOBILE TRANSMITTER (TX)</span>
-        <span style="font-size:11px; color:#94A3B8;">SET VOLUME 85-95%</span>
+        <span style="font-size:11px; color:#94A3B8;">VOLUME: 80%</span>
       </div>
-      <textarea id="txInput" maxlength="32" placeholder="Enter message...">MANAS JHA</textarea>
+      <textarea id="txInput" maxlength="25" placeholder="Type message...">MANAS JHA</textarea>
       <div class="action-row">
         <button id="btnTransmit" class="btn-main btn-tx" onclick="transmitData()">TRANSMIT DATA</button>
       </div>
     </div>
 
-    <!-- RECEIVER VIEW (TAB A8) -->
+    <!-- RECEIVER VIEW -->
     <div id="rxView" class="workspace-card" style="display:none;">
       <div class="card-header">
         <span style="color:#10B981;">TAB A8 RECEIVER (RX)</span>
-        <span id="signalStrength" style="font-size:11px; color:#94A3B8;">SIGNAL: 0%</span>
+        <span id="signalStrength" style="font-size:11px; color:#94A3B8;">NOISE FLOOR: --</span>
       </div>
       <div id="rxOutput" class="rx-screen">WAITING FOR SIGNAL...</div>
       <div class="action-row">
@@ -336,23 +328,26 @@
     </div>
 
     <footer class="footer">
-      ENGINEERED BY <strong>RAMMS GROUPS</strong> // ERROR-FREE ACOUSTIC LINK
+      ENGINEERED BY <strong>RAMMS GROUPS</strong> // WIDEBAND ACOUSTIC PROTOCOL
     </footer>
   </div>
 
 <script>
   /**
-   * RAMMS ACOUSTIC MODEM v3.0 — SELF-CLOCKING 16-FSK + GUARD INTERVAL
-   * Eliminates clock drift & room reverberation garbage characters.
-   * Start Tone: 12,800 Hz | Data Nibbles (0-15): 13,400 Hz to 16,400 Hz (200 Hz step) | End Tone: 17,000 Hz
+   * RAMMS ACOUSTIC MODEM v5.0 — WIDE-CHANNEL 8-FSK (Octal Nibble Protocol)
+   * Why 450 Hz spacing? Eliminates room echo overlap & Android mic roll-off.
+   * START: 5,800 Hz
+   * OCTAL DIGITS (0-7): 6,400 Hz to 9,550 Hz (Step = 450 Hz)
+   * END: 10,200 Hz
+   * Each ASCII char = 3 Octal tones (e.g. 'A' = 65 = 101 octal)
    */
-  const FREQ_START = 12800;
-  const FREQ_BASE  = 13400;
-  const FREQ_STEP  = 200;
-  const FREQ_END   = 17000;
+  const FREQ_START = 5800;
+  const FREQ_BASE  = 6400;
+  const FREQ_STEP  = 450;
+  const FREQ_END   = 10200;
 
-  const TONE_DURATION = 0.115; // 115ms solid tone burst
-  const GUARD_GAP     = 0.060; // 60ms silence gap between symbols (prevents echo overlap)
+  const TONE_DURATION = 0.140; // 140ms solid pulse
+  const GUARD_GAP     = 0.085; // 85ms clear silence to kill room echo
 
   let audioCtx = null;
   let isTransmitting = false;
@@ -385,4 +380,268 @@
       document.getElementById('headerTitle').innerText = 'RAMMS RX // TAB A8';
       document.getElementById('txView').style.display = 'none';
       document.getElementById('rxView').style.display = 'flex';
-      statusBadge.
+      statusBadge.style.color = '#10B981';
+      statusBadge.style.borderColor = '#10B981';
+    }
+  }
+
+  function resetRole() {
+    stopReceiver();
+    document.getElementById('mainTerminal').style.display = 'none';
+    document.getElementById('roleSelectorScreen').style.display = 'flex';
+  }
+
+  function initAudio() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+  }
+
+  function transmitData() {
+    if (isTransmitting) return;
+    const rawText = document.getElementById('txInput').value.trim().toUpperCase();
+    if (!rawText) return;
+
+    initAudio();
+    isTransmitting = true;
+    btnTransmit.disabled = true;
+    statusBadge.innerText = 'TRANSMITTING...';
+
+    // Encode each character into 3 Octal (0-7) symbols
+    const tones = [FREQ_START, FREQ_START];
+    for (let i = 0; i < rawText.length; i++) {
+      const code = rawText.charCodeAt(i);
+      const d1 = (code >> 6) & 0x07;
+      const d2 = (code >> 3) & 0x07;
+      const d3 = code & 0x07;
+      tones.push(FREQ_BASE + d1 * FREQ_STEP);
+      tones.push(FREQ_BASE + d2 * FREQ_STEP);
+      tones.push(FREQ_BASE + d3 * FREQ_STEP);
+    }
+    tones.push(FREQ_END);
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    gain.gain.value = 0.0001;
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    let cursorTime = audioCtx.currentTime + 0.05;
+    osc.start(cursorTime);
+
+    tones.forEach((freq) => {
+      const t0 = cursorTime;
+      const t1 = t0 + TONE_DURATION;
+
+      osc.frequency.setValueAtTime(freq, t0);
+      gain.gain.setValueAtTime(0.0001, t0);
+      gain.gain.linearRampToValueAtTime(0.85, t0 + 0.015);
+      gain.gain.setValueAtTime(0.85, t1 - 0.015);
+      gain.gain.linearRampToValueAtTime(0.0001, t1);
+
+      cursorTime = t1 + GUARD_GAP;
+    });
+
+    const totalDurationMs = (cursorTime - audioCtx.currentTime) * 1000;
+    osc.stop(cursorTime + 0.05);
+
+    let elapsed = 0;
+    const prog = setInterval(() => {
+      elapsed += 80;
+      const pct = Math.min(100, Math.round((elapsed / totalDurationMs) * 100));
+      btnTransmit.innerText = `SENDING: ${pct}%`;
+      freqReadout.innerText = `TX ACTIVE: ${pct}%`;
+      drawTxPulse(pct);
+
+      if (elapsed >= totalDurationMs) {
+        clearInterval(prog);
+        isTransmitting = false;
+        btnTransmit.disabled = false;
+        btnTransmit.innerText = 'TRANSMIT DATA';
+        statusBadge.innerText = 'SENT ✔';
+        freqReadout.innerText = 'IDLE';
+      }
+    }, 80);
+  }
+
+  function drawTxPulse(phase) {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#38BDF8';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (let x = 0; x < canvas.width; x++) {
+      const y = canvas.height / 2 + Math.sin(x * 0.14 + phase) * 36 * Math.sin((x / canvas.width) * Math.PI);
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  async function toggleReceiver() {
+    if (isListening) {
+      stopReceiver();
+      return;
+    }
+
+    try {
+      initAudio();
+      micStream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: false,
+          noiseSuppression: false,
+          autoGainControl: false
+        }
+      });
+
+      const source = audioCtx.createMediaStreamSource(micStream);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 4096;
+      analyser.smoothingTimeConstant = 0.1;
+      source.connect(analyser);
+
+      isListening = true;
+      btnListen.innerText = 'STOP RECEIVER';
+      btnListen.style.background = '#EF4444';
+      statusBadge.innerText = 'CALIBRATING NOISE...';
+      rxOutput.innerText = 'CALIBRATING ROOM NOISE...';
+
+      decodeLoop();
+    } catch (e) {
+      alert('Allow Microphone permission on Tab A8.');
+    }
+  }
+
+  function stopReceiver() {
+    isListening = false;
+    if (micStream) micStream.getTracks().forEach(t => t.stop());
+    if (animId) cancelAnimationFrame(animId);
+    btnListen.innerText = 'START RECEIVER';
+    btnListen.style.background = 'linear-gradient(135deg, #059669, #10B981)';
+    statusBadge.innerText = 'STANDBY';
+  }
+
+  function clearReceiver() {
+    rxOutput.innerText = isListening ? 'READY FOR PACKET...' : 'WAITING FOR SIGNAL...';
+  }
+
+  function decodeLoop() {
+    const bufferLen = analyser.frequencyBinCount;
+    const data = new Uint8Array(bufferLen);
+    const binHz = audioCtx.sampleRate / analyser.fftSize;
+
+    let sessionActive = false;
+    let symbolLocked = false;
+    let candidateSymbol = null;
+    let stableFrames = 0;
+    let octalBuffer = [];
+    let finalString = '';
+
+    // Auto-calibrate room background noise during first 35 frames
+    let calFrames = 0;
+    let maxRoomNoise = 70;
+    let dynamicThreshold = 115;
+
+    function classifyFrequency(freq, amp) {
+      if (amp < dynamicThreshold) return 'SILENCE';
+      if (Math.abs(freq - FREQ_START) <= 130) return 'START';
+      if (Math.abs(freq - FREQ_END) <= 130) return 'END';
+
+      const idx = Math.round((freq - FREQ_BASE) / FREQ_STEP);
+      if (idx >= 0 && idx <= 7) {
+        const expected = FREQ_BASE + idx * FREQ_STEP;
+        if (Math.abs(freq - expected) <= 130) return idx;
+      }
+      return 'NOISE';
+    }
+
+    function loop() {
+      if (!isListening) return;
+      analyser.getByteFrequencyData(data);
+
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const minBin = Math.floor(5400 / binHz);
+      const maxBin = Math.ceil(10800 / binHz);
+      const barW = canvas.width / (maxBin - minBin);
+
+      let peakBin = minBin;
+      let peakVal = 0;
+
+      for (let i = minBin; i <= maxBin; i++) {
+        const v = data[i];
+        if (v > peakVal) { peakVal = v; peakBin = i; }
+        const h = (v / 255) * canvas.height;
+        ctx.fillStyle = v > dynamicThreshold ? '#10B981' : '#38BDF8';
+        ctx.fillRect((i - minBin) * barW, canvas.height - h, barW - 1, h);
+      }
+
+      // Calibration Phase
+      if (calFrames < 35) {
+        calFrames++;
+        if (peakVal > maxRoomNoise) maxRoomNoise = peakVal;
+        if (calFrames === 35) {
+          dynamicThreshold = Math.min(200, Math.max(105, maxRoomNoise + 35));
+          statusBadge.innerText = 'MIC LOCKED';
+          signalStrength.innerText = `THRESHOLD: ${dynamicThreshold}`;
+          rxOutput.innerText = 'READY FOR PACKET...';
+        }
+        animId = requestAnimationFrame(loop);
+        return;
+      }
+
+      const detectedFreq = Math.round(peakBin * binHz);
+      freqReadout.innerText = `PEAK: ${detectedFreq} Hz`;
+
+      const sym = classifyFrequency(detectedFreq, peakVal);
+
+      if (sym === 'SILENCE') {
+        symbolLocked = false;
+        candidateSymbol = null;
+        stableFrames = 0;
+      } else if (sym !== 'NOISE' && !symbolLocked) {
+        if (sym === candidateSymbol) {
+          stableFrames++;
+          // Require 3 consecutive stable frames (~50ms) to confirm tone
+          if (stableFrames >= 3) {
+            symbolLocked = true;
+
+            if (sym === 'START') {
+              sessionActive = true;
+              octalBuffer = [];
+              finalString = '';
+              rxOutput.innerText = 'RECEIVING...';
+            } else if (sym === 'END' && sessionActive) {
+              sessionActive = false;
+              if (finalString.length > 0) rxOutput.innerText = finalString;
+            } else if (typeof sym === 'number' && sessionActive) {
+              octalBuffer.push(sym);
+              if (octalBuffer.length === 3) {
+                const charCode = (octalBuffer[0] << 6) | (octalBuffer[1] << 3) | octalBuffer[2];
+                octalBuffer = [];
+                // Strict Printable ASCII Filter (A-Z, 0-9, Space)
+                if ((charCode >= 65 && charCode <= 90) || (charCode >= 48 && charCode <= 57) || charCode === 32) {
+                  finalString += String.fromCharCode(charCode);
+                  rxOutput.innerText = finalString;
+                }
+              }
+            }
+          }
+        } else {
+          candidateSymbol = sym;
+          stableFrames = 1;
+        }
+      }
+
+      animId = requestAnimationFrame(loop);
+    }
+
+    animId = requestAnimationFrame(loop);
+  }
+</script>
+</body>
+</html>
